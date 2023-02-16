@@ -1,0 +1,29 @@
+import serial
+import time
+
+MAX_BUFF_LEN = 255
+port = serial.Serial("COM9", 115200, timeout=1)
+
+
+def read_serial(num_char=1):
+    string = port.read(num_char)
+    return string.decode()
+
+
+def write_serial(cmd):
+    cmd = cmd + '\n'
+    port.write(cmd.encode())
+
+def echo_test():
+    cmd = input("enter command here: ")
+    if cmd:
+        write_serial(cmd)
+
+    string = read_serial(MAX_BUFF_LEN)
+    if(len(string)):
+        print(string)
+
+
+
+while(1):
+    echo_test()
