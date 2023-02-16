@@ -1,0 +1,37 @@
+#include <Arduino.h>
+
+#define MAX_BUFF_LEN 255
+
+char c;
+char str[MAX_BUFF_LEN];
+uint8_t idx = 0;
+
+void setup() {
+  Serial.begin(115200);
+}
+
+void read_n_echo() {
+    if(Serial.available() > 0){
+    c = Serial.read(); // read one byte
+
+    if (c != '\n'){ //still read
+      str[idx++] = c;
+    }
+    else{ // done reading
+      str[idx] = '\0'; // convert to str
+      idx = 0;
+
+      Serial.print("ESP: ");
+      Serial.print(str);
+    }
+  }
+}
+
+void loop() {
+  // Serial.println(" I am A FUCKING god");
+  read_n_echo();
+
+}
+
+
+
