@@ -2,7 +2,7 @@ import serial
 import time
 
 MAX_BUFF_LEN = 255
-port = serial.Serial("COM1", 115200, timeout=1)
+port = serial.Serial("COM9", 115200, timeout=1)
 
 
 def read_serial(num_char=1):
