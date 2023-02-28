@@ -23,7 +23,24 @@ def echo_test():
     if(len(string)):
         print(string)
 
+def close_claw():
+    # this will close the claw to pick up the piece
+    # move servo soem distance
+    # serial print the task is done
+    write_serial("close")
+    string1 = read_serial(MAX_BUFF_LEN)
+    if(len(string1)):
+            print(string1)
+    write_serial("done")
+    string2 = read_serial(MAX_BUFF_LEN)
+    if(len(string2)):
+            print(string2)
 
+def open_claw():
+    # this will open the cLAW
+    # move the ervo some distance
+    # serial print done
+    pass
 
 while(1):
-    echo_test()
+    close_claw()
