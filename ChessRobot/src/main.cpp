@@ -25,8 +25,9 @@ char str[MAX_BUFF_LEN];
 uint8_t idx = 0;
 
 // Create share variables for the pwm values for the x and y motors.
-Share<uint8_t> x_dist (0);
-Share<uint8_t> y_dist (0);
+Share<uint32_t> x_dist (0);
+Share<uint32_t> y_dist (0);
+Share<uint8_t> x_flag (0);
 
 void task_read_n_echo(void* p_params)
 {
@@ -37,6 +38,13 @@ void task_read_n_echo(void* p_params)
     if (c != '\n')              //still read
     { 
       str[idx++] = c;
+    }
+
+    String data = str;
+    String close = "close";
+    if (data.indexOf(close))
+    {
+      x_dist.put(10000);
     }
     // else
     // {                           // done reading
@@ -55,6 +63,9 @@ void setup(void)
   Serial.begin(115200);
   while (!Serial)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
+  
+  Serial << endl << endl << "Demonstration of Tasks, Shares, and Queues" 
+        << endl;
 
   // Task which runs x-axis motor. It runs at a high priority
   xTaskCreate (task_x, "X Axis", 2048, NULL, 5, NULL);
