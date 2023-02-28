@@ -28,13 +28,16 @@ def close_claw():
     # move servo soem distance
     # serial print the task is done
     write_serial("close")
+
+    # wait until the C++ code is done doing stuff and read done
+
+
+
+    # This should read done
     string1 = read_serial(MAX_BUFF_LEN)
     if(len(string1)):
             print(string1)
-    write_serial("done")
-    string2 = read_serial(MAX_BUFF_LEN)
-    if(len(string2)):
-            print(string2)
+
 
 def open_claw():
     # this will open the cLAW
