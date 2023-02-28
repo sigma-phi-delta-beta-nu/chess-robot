@@ -1,51 +1,66 @@
+
+/** @file main.cpp
+ *  This is the main file for the microcontroller portion of the Chess
+ *  Robot project. The program includes code to interface with python code
+ *  on the users laptop. It also includes the arduino setup function that
+ *  initializes the comunication ports and gets the tasks running.
+ *  After set up, the the program also includes a loop.
+ * 
+ *  @author Corey Agena
+ *  @date   2023-Feb-23
+ */
+
+// Include the relevant libraries.
 #include <Arduino.h>
-#include <ESP32Encoder.h>
-#include <SparkFun_TB6612.h>
+#include <PrintStream.h>
+#include "taskshare.h"
+#include "taskqueue.h"
+#include "shares.h"
+#include "task_x.h"
 
-// Pins for all inputs, keep in mind the PWM defines must be on PWM pins
-// the default pins listed are the ones used on the Redbot (ROB-12097) with
-// the exception of STBY which the Redbot controls with a physical switch
-#define AIN1 0
-#define AIN2 2
-#define PWMA 15
-#define STBY 4
+#define MAX_BUFF_LEN 255
 
-#define CLK 33
-#define DT 32
+char c;
+char str[MAX_BUFF_LEN];
+uint8_t idx = 0;
 
-// these constants are used to allow you to make your motor configuration 
-// line up with function names like forward.  Value can be 1 or -1
-const int offsetA = 1;
+// Create share variables for the pwm values for the x and y motors.
+Share<uint8_t> x_dist (0);
+Share<uint8_t> y_dist (0);
 
-// Initializing motors.  The library will allow you to initialize as many
-// motors as you have memory for.  If you are using functions like forward
-// that take 2 motors as arguements you can either write new functions or
-// call the function more than once.
-Motor motor1 = Motor(AIN1, AIN2, PWMA, offsetA, STBY);
+void task_read_n_echo(void* p_params)
+{
+  if(Serial.available() > 0)
+  {
+    c = Serial.read();          // read one byte
 
-ESP32Encoder encoder;
+    if (c != '\n')              //still read
+    { 
+      str[idx++] = c;
+    }
+    // else
+    // {                           // done reading
+    //   str[idx] = '\0';          // convert to str
+    //   idx = 0;
 
-void setup(void) {
+    //   Serial.print("ESP: ");
+    //   Serial.print(str);
+    // }
+  }
+  vTaskDelay(100);
+}
+
+void setup(void) 
+{
   Serial.begin(115200);
   while (!Serial)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
-  
-  encoder.attachHalfQuad(CLK, DT);
 
-  while(true)
-  {
-    float desired_pos = 10000;
-    float encoder_current = encoder.getCount();
-    Serial.print(encoder_current);
-    float new_input = 0.5*(desired_pos - encoder_current);
+  // Task which runs x-axis motor. It runs at a high priority
+  xTaskCreate (task_x, "X Axis", 2048, NULL, 5, NULL);
 
-    motor1.drive(new_input);
-
-    delay(10);
-  }
-
+  // Task which reads from the Serial Port
+  xTaskCreate (task_read_n_echo, "SerialPort", 4000, NULL, 2, NULL);
 }
-
-
 
 void loop (void) {}
