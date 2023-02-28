@@ -5,6 +5,7 @@
  *  @date   2023-Feb-23
  */
 #include <Arduino.h>
+#include <PrintStream.h>
 #include <ESP32Encoder.h>
 #include <SparkFun_TB6612.h>
 #include "taskshare.h"
