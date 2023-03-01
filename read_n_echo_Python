@@ -3,13 +3,12 @@ import time
 
 MAX_BUFF_LEN = 255
 # port = serial.Serial("COM3", 115200, timeout=1)
-port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
+port = serial.Serial("COM9", 115200, timeout=1)
 
 
-def read_serial(num_char=1):
+def read_serial(num_char=28):
     string = port.read(num_char)
     return string.decode()
-
 
 def write_serial(cmd):
     cmd = cmd + '\n'
@@ -34,9 +33,9 @@ def close_claw():
 
 
     # This should read done
-    string1 = read_serial(MAX_BUFF_LEN)
-    if(len(string1)):
-        print(string1)
+    # string1 = read_serial(MAX_BUFF_LEN)
+    # if(len(string1)):
+    #     print(string1)
 
         
 def open_claw():
@@ -49,6 +48,12 @@ i = 1
 while(True):
     if i <= 1:
         close_claw()
+        # if read_serial() == "ESP: Done\n":
+        #     print(read_serial())
+        # else:
+        #     break
         i += 1
     else:
-        pass
+        break
+print(read_serial())
+print(read_serial())

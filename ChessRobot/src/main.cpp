@@ -29,38 +29,32 @@ Share<uint32_t> x_dist (0);
 Share<uint32_t> y_dist (0);
 Share<uint8_t>  x_flag (0);
 
-void task_read_n_echo(void* p_params)
-{
+void task_read_n_echo(void* p_params){
   String data;
   String close = "close";
-  while(true)
-  {
-    if(Serial.available() > 0)
-    {
+  while(true){
+    if(Serial.available() > 0){
       c = Serial.read();          // read one byte
-
-      if (c != '\n')              //still read
-      { 
+      if (c != '\n'){              //still read
         str[idx++] = c;
         data += c;
-      }
-      else
-      {                           // done reading
+        }
+      else{                           // done reading
         str[idx] = '\0';          // convert to str
         idx = 0;
         // Serial.print("ESP: ");
         // Serial.print(str);
         x_dist.put(10000);
+        Serial.println("x_dist set to 10000");
 
-        if (data.indexOf(close))
-        {
-          // x_dist.put(10000);
+          // if (data.indexOf(close)){
+          // // x_dist.put(10000);
+          // }
         }
       }
-    }
     vTaskDelay(10);
+    }
   }
-}
 
 void setup(void) 
 {
