@@ -16,7 +16,10 @@
 #include "taskshare.h"
 
 // Shares which hold the position values motors and linear actuator.
-extern Share<uint8_t> x_dist;
-extern Share<uint8_t> y_dist;
+extern Share<uint32_t> x_dist;
+extern Share<uint32_t> y_dist;
+
+// Flags for indicating that the position has been reached.
+extern Share<uint8_t> x_flag;
 
 #endif // _SHARES_H_

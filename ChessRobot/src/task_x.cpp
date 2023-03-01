@@ -5,8 +5,12 @@
  *  @date   2023-Feb-23
  */
 #include <Arduino.h>
+#include <PrintStream.h>
 #include <ESP32Encoder.h>
 #include <SparkFun_TB6612.h>
+#include "taskshare.h"
+#include "taskqueue.h"
+#include "shares.h"
 
 // Pins for all inputs, keep in mind the PWM defines must be on PWM pins
 // the default pins listed are the ones used on the Redbot (ROB-12097) with
@@ -37,12 +41,17 @@ void task_x (void* p_params)
 
   while(true)
   {
-    float desired_pos = 10000;
+    float desired_pos = x_dist.get();
     float encoder_current = encoder.getCount();
     Serial.print(encoder_current);
     float new_input = 0.5*(desired_pos - encoder_current);
 
     motor1.drive(new_input);
+
+    if (new_input < 0.5)
+    {
+      Serial.print("Done");
+    }
 
     vTaskDelay(10);
   }

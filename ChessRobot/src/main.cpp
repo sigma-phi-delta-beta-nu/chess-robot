@@ -25,8 +25,9 @@ char str[MAX_BUFF_LEN];
 uint8_t idx = 0;
 
 // Create share variables for the pwm values for the x and y motors.
-Share<uint8_t> x_dist (0);
-Share<uint8_t> y_dist (0);
+Share<uint32_t> x_dist (0);
+Share<uint32_t> y_dist (0);
+Share<uint8_t> x_flag (0);
 
 void task_read_n_echo(void* p_params)
 {
@@ -37,6 +38,13 @@ void task_read_n_echo(void* p_params)
     if (c != '\n')              //still read
     { 
       str[idx++] = c;
+    }
+
+    String data = str;
+    String close = "close";
+    if (data.indexOf(close))
+    {
+      x_dist.put(10000);
     }
     // else
     // {                           // done reading
