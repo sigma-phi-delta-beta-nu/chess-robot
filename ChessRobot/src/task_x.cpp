@@ -43,7 +43,7 @@ void task_x (void* p_params)
   {
     float desired_pos = x_dist.get();
     float encoder_current = encoder.getCount();
-    Serial.print(encoder_current);
+    // Serial.print(encoder_current);
     float new_input = 0.5*(desired_pos - encoder_current);
 
     motor1.drive(new_input);
@@ -52,6 +52,11 @@ void task_x (void* p_params)
     // {
     //   Serial.print("Done");
     // }
+    
+    if (desired_pos > 0)
+    {
+      Serial.print("Done");
+    }
 
     vTaskDelay(10);
   }

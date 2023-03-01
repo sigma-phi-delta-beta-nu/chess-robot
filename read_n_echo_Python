@@ -33,18 +33,22 @@ def close_claw():
     # wait until the C++ code is done doing stuff and read done
 
 
-
     # This should read done
     string1 = read_serial(MAX_BUFF_LEN)
     if(len(string1)):
-            print(string1)
+        print(string1)
 
-
+        
 def open_claw():
     # this will open the cLAW
     # move the ervo some distance
     # serial print done
     pass
 
-while(1):
-    close_claw()
+i = 1
+while(True):
+    if i <= 1:
+        close_claw()
+        i += 1
+    else:
+        pass
