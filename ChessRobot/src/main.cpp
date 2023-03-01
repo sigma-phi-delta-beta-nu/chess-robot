@@ -63,9 +63,6 @@ void setup(void)
   Serial.begin(115200);
   while (!Serial)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
-  
-  Serial << endl << endl << "Demonstration of Tasks, Shares, and Queues" 
-        << endl;
 
   // Task which runs x-axis motor. It runs at a high priority
   xTaskCreate (task_x, "X Axis", 2048, NULL, 5, NULL);

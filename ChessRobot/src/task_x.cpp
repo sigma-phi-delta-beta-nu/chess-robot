@@ -48,6 +48,11 @@ void task_x (void* p_params)
 
     motor1.drive(new_input);
 
+    if (new_input < 0.5)
+    {
+      Serial.print("Done");
+    }
+
     vTaskDelay(10);
   }
 
