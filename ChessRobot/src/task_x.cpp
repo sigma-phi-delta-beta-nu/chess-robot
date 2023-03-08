@@ -15,13 +15,13 @@
 // Pins for all inputs, keep in mind the PWM defines must be on PWM pins
 // the default pins listed are the ones used on the Redbot (ROB-12097) with
 // the exception of STBY which the Redbot controls with a physical switch
-#define AIN1 0
-#define AIN2 2
-#define PWMA 15
-#define STBY 4
+#define AIN1 18
+#define AIN2 17
+#define PWMA 16
+#define STBY 19
 
-#define CLK 33
-#define DT 32
+#define CLK 39
+#define DT 36
 
 // these constants are used to allow you to make your motor configuration 
 // line up with function names like forward.  Value can be 1 or -1
@@ -42,6 +42,7 @@ void task_x (void* p_params)
   while(true)
   {
     float desired_pos = x_dist.get();
+    // float desired_pos = 10000;
     float encoder_current = encoder.getCount();
     // Serial.print(encoder_current);
     float new_input = 0.5*(desired_pos - encoder_current);
