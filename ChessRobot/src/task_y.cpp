@@ -1,8 +1,8 @@
-/** @file task_x.cpp
- *  This file contains code to run the x-axis motor.
+/** @file task_y.cpp
+ *  This file contains code to run the y-axis motor.
  * 
  *  @author Corey Agena
- *  @date   2023-Feb-23
+ *  @date   2023-Apr-20
  */
 #include <Arduino.h>
 #include <PrintStream.h>
@@ -15,40 +15,40 @@
 // Pins for all inputs, keep in mind the PWM defines must be on PWM pins
 // the default pins listed are the ones used on the Redbot (ROB-12097) with
 // the exception of STBY which the Redbot controls with a physical switch
-#define AIN1 18
-#define AIN2 17
-#define PWMA 16
+#define BIN1 23
+#define BIN2 22
+#define PWMB 23
 #define STBY 19
 
-#define CLK 39
-#define DT 36
+#define CLK 35
+#define DT 34
 
 // these constants are used to allow you to make your motor configuration 
 // line up with function names like forward.  Value can be 1 or -1
-const int offsetA = 1;
+const int offsetB = 1;
 
 // Initializing motors.  The library will allow you to initialize as many
 // motors as you have memory for.  If you are using functions like forward
 // that take 2 motors as arguements you can either write new functions or
 // call the function more than once.
-Motor motor_x = Motor(AIN1, AIN2, PWMA, offsetA, STBY);
+Motor motor_y = Motor(BIN1, BIN2, PWMB, offsetB, STBY);
 
-ESP32Encoder encoder_x;
+ESP32Encoder encoder_y;
 
-void task_x (void* p_params)
+void task_y (void* p_params)
 {
-  encoder_x.attachHalfQuad(CLK, DT);
+  encoder_y.attachHalfQuad(CLK, DT);
 
   while(true)
   {
-    float desired_pos = x_dist.get();
+    float desired_pos = y_dist.get();
     // float desired_pos = 10000;
-    float encoder_current = encoder_x.getCount();
+    float encoder_current = encoder_y.getCount();
     // Serial.print(encoder_current);
     float error = desired_pos - encoder_current;
     float new_input = 0.5*(error);
 
-    motor_x.drive(new_input);
+    motor_y.drive(new_input);
 
     if (error < 0.1 && error > -0.1)
     {

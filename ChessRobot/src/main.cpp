@@ -17,6 +17,7 @@
 #include "taskqueue.h"
 #include "shares.h"
 #include "task_x.h"
+#include "task_y.h"
 
 #define MAX_BUFF_LEN 255
 
@@ -64,6 +65,9 @@ void setup(void)
 
   // Task which runs x-axis motor. It runs at a high priority
   xTaskCreate (task_x, "X Axis", 2048, NULL, 5, NULL);
+
+  // Task which runs y-axis motor. It runs at a high priority
+  xTaskCreate (task_y, "Y Axis", 2048, NULL, 5, NULL);
 
   // Task which reads from the Serial Port
   xTaskCreate (task_read_n_echo, "SerialPort", 4000, NULL, 2, NULL);
