@@ -8211,6 +8211,9 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <part name="R3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/2"/>
 <part name="GND16" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND" device=""/>
 <part name="X7" library="ME507" deviceset="SCREWTERM_2P" device="_254"/>
+<part name="R4" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/2"/>
+<part name="GND25" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND" device=""/>
+<part name="X12" library="ME507" deviceset="SCREWTERM_2P" device="_254"/>
 </parts>
 <sheets>
 <sheet>
@@ -8475,6 +8478,20 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <attribute name="NAME" x="13.335" y="94.996" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="16.002" y="90.424" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="R4" gate="G$1" x="83.82" y="7.62" smashed="yes" rot="R90">
+<attribute name="NAME" x="82.3214" y="3.81" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="87.122" y="3.81" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="GND25" gate="1" x="83.82" y="-12.7" smashed="yes">
+<attribute name="VALUE" x="83.82" y="-12.954" size="1.778" layer="96" align="top-center"/>
+</instance>
+<instance part="X12" gate="-1" x="81.28" y="-5.08" smashed="yes" rot="R180">
+<attribute name="NAME" x="77.724" y="-4.445" size="1.778" layer="95" rot="R180"/>
+</instance>
+<instance part="X12" gate="-2" x="81.28" y="0" smashed="yes" rot="R180">
+<attribute name="NAME" x="77.724" y="0.635" size="1.778" layer="95" rot="R180"/>
+<attribute name="VALUE" x="82.296" y="3.302" size="1.778" layer="96" rot="R180"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -8668,6 +8685,11 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="GND16" gate="1" pin="GND"/>
 <wire x1="7.62" y1="88.9" x2="2.54" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="X7" gate="-1" pin="1"/>
+</segment>
+<segment>
+<pinref part="GND25" gate="1" pin="GND"/>
+<wire x1="83.82" y1="-5.08" x2="83.82" y2="-10.16" width="0.1524" layer="91"/>
+<pinref part="X12" gate="-1" pin="1"/>
 </segment>
 </net>
 <net name="N$12" class="0">
@@ -8984,10 +9006,13 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="X3" gate="-4" pin="1"/>
 <pinref part="X4" gate="-2" pin="1"/>
 <pinref part="X4" gate="-4" pin="1"/>
-<wire x1="149.86" y1="12.7" x2="38.1" y2="12.7" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="12.7" x2="83.82" y2="12.7" width="0.1524" layer="91"/>
 <pinref part="HV" gate="G$1" pin="6"/>
+<wire x1="83.82" y1="12.7" x2="38.1" y2="12.7" width="0.1524" layer="91"/>
 <wire x1="7.62" y1="10.16" x2="38.1" y2="10.16" width="0.1524" layer="91"/>
 <junction x="38.1" y="10.16"/>
+<pinref part="R4" gate="G$1" pin="2"/>
+<junction x="83.82" y="12.7"/>
 </segment>
 </net>
 <net name="N$22" class="0">
@@ -8997,9 +9022,19 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="X7" gate="-2" pin="1"/>
 </segment>
 </net>
+<net name="N$32" class="0">
+<segment>
+<pinref part="R4" gate="G$1" pin="1"/>
+<wire x1="83.82" y1="2.54" x2="83.82" y2="0" width="0.1524" layer="91"/>
+<pinref part="X12" gate="-2" pin="1"/>
+</segment>
+</net>
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="204,1,40.64,25.4,U$1,5V_IN,,,,"/>
+</errors>
 </schematic>
 </drawing>
 <compatibility>

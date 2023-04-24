@@ -494,6 +494,51 @@ Metric Code Size 4564</description>
 <text x="-6.604" y="6.223" size="1.27" layer="25">&gt;NAME</text>
 <text x="-6.604" y="-6.858" size="1.27" layer="27">&gt;VALUE</text>
 </package>
+<package name="2POL254">
+<description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
+<wire x1="-2.67" y1="-3.1" x2="2.67" y2="-3.1" width="0.254" layer="21"/>
+<wire x1="2.67" y1="-3.1" x2="2.67" y2="3.1" width="0.254" layer="21"/>
+<wire x1="2.67" y1="3.1" x2="-2.67" y2="3.1" width="0.254" layer="21"/>
+<wire x1="-2.67" y1="3.1" x2="-2.67" y2="-3.1" width="0.254" layer="21"/>
+<wire x1="-1.905" y1="-0.508" x2="-0.762" y2="0.635" width="0.1524" layer="51"/>
+<wire x1="0.508" y1="-0.254" x2="2.032" y2="0.127" width="0.1524" layer="51"/>
+<circle x="-1.27" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="1.27" y="0" radius="0.889" width="0.1524" layer="51"/>
+<pad name="1" x="-1.27" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="2" x="1.27" y="0" drill="1.2" shape="long" rot="R90"/>
+<text x="-2.794" y="4.318" size="1.27" layer="25">&gt;NAME</text>
+<text x="-2.794" y="-5.588" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+<package name="2POL381">
+<description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
+<wire x1="-3.94" y1="-3.6" x2="3.94" y2="-3.6" width="0.254" layer="21"/>
+<wire x1="3.94" y1="-3.6" x2="3.94" y2="3.7" width="0.254" layer="21"/>
+<wire x1="3.94" y1="3.7" x2="-3.94" y2="3.7" width="0.254" layer="21"/>
+<wire x1="-3.94" y1="3.7" x2="-3.94" y2="-3.6" width="0.254" layer="21"/>
+<wire x1="-2.54" y1="-0.508" x2="-1.397" y2="0.635" width="0.1524" layer="51"/>
+<wire x1="1.143" y1="-0.254" x2="2.667" y2="0.127" width="0.1524" layer="51"/>
+<circle x="-1.905" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="1.905" y="0" radius="0.889" width="0.1524" layer="51"/>
+<pad name="1" x="-1.905" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="2" x="1.905" y="0" drill="1.2" shape="long" rot="R90"/>
+<text x="-3.429" y="4.318" size="1.27" layer="25">&gt;NAME</text>
+<text x="-3.429" y="-5.588" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+<package name="2POL508">
+<description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
+<wire x1="-5.21" y1="-5.3" x2="5.21" y2="-5.3" width="0.254" layer="21"/>
+<wire x1="5.21" y1="-5.3" x2="5.21" y2="5.9" width="0.254" layer="21"/>
+<wire x1="5.21" y1="5.9" x2="-5.21" y2="5.9" width="0.254" layer="21"/>
+<wire x1="-5.21" y1="5.9" x2="-5.21" y2="-5.3" width="0.254" layer="21"/>
+<wire x1="-3.175" y1="-0.508" x2="-2.032" y2="0.635" width="0.1524" layer="51"/>
+<wire x1="1.778" y1="-0.254" x2="3.302" y2="0.127" width="0.1524" layer="51"/>
+<circle x="-2.54" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="2.54" y="0" radius="0.889" width="0.1524" layer="51"/>
+<pad name="1" x="-2.54" y="0" drill="1.4" shape="long" rot="R90"/>
+<pad name="2" x="2.54" y="0" drill="1.4" shape="long" rot="R90"/>
+<text x="-4.064" y="6.223" size="1.27" layer="25">&gt;NAME</text>
+<text x="-4.064" y="-6.858" size="1.27" layer="27">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="KEEYEES_ESP32">
@@ -923,6 +968,47 @@ Larger versions can carry more current.</description>
 <connect gate="-1" pin="1" pad="1"/>
 <connect gate="-2" pin="1" pad="2"/>
 <connect gate="-3" pin="1" pad="3"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="SCREWTERM_2P" prefix="X" uservalue="yes">
+<description>&lt;b&gt;Screw Terminal Block&lt;/b&gt;
+&lt;p&gt;
+This part is designed for a screw terminal connector.  The 2.54mm (0.100 inch) foorprint can also be used 
+for male or female pin headers such as those on most development boards.  One can also solder wires 
+directly into the holes, though this makes modifications or repairs to the system more inconvenient.
+Larger versions can carry more current.</description>
+<gates>
+<gate name="-1" symbol="SKB" x="0" y="0" addlevel="always"/>
+<gate name="-2" symbol="SKBV" x="0" y="-5.08" addlevel="always"/>
+</gates>
+<devices>
+<device name="_254" package="2POL254">
+<connects>
+<connect gate="-1" pin="1" pad="1"/>
+<connect gate="-2" pin="1" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="_381" package="2POL381">
+<connects>
+<connect gate="-1" pin="1" pad="1"/>
+<connect gate="-2" pin="1" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="_508" package="2POL508">
+<connects>
+<connect gate="-1" pin="1" pad="1"/>
+<connect gate="-2" pin="1" pad="2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -8124,7 +8210,7 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <part name="R2" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/2"/>
 <part name="R3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/2"/>
 <part name="GND16" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND" device=""/>
-<part name="X7" library="ME507" deviceset="SCREWTERM_3P" device="_254"/>
+<part name="X7" library="ME507" deviceset="SCREWTERM_2P" device="_254"/>
 </parts>
 <sheets>
 <sheet>
@@ -8382,10 +8468,10 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <instance part="GND16" gate="1" x="0" y="88.9" smashed="yes" rot="R270">
 <attribute name="VALUE" x="-0.254" y="88.9" size="1.778" layer="96" rot="R270" align="top-center"/>
 </instance>
-<instance part="X7" gate="-2" x="7.62" y="91.44" smashed="yes" rot="R90">
+<instance part="X7" gate="-1" x="7.62" y="91.44" smashed="yes" rot="R90">
 <attribute name="NAME" x="8.255" y="94.996" size="1.778" layer="95" rot="R90"/>
 </instance>
-<instance part="X7" gate="-3" x="12.7" y="91.44" smashed="yes" rot="R90">
+<instance part="X7" gate="-2" x="12.7" y="91.44" smashed="yes" rot="R90">
 <attribute name="NAME" x="13.335" y="94.996" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="16.002" y="90.424" size="1.778" layer="96" rot="R90"/>
 </instance>
@@ -8579,9 +8665,9 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="X11" gate="-3" pin="1"/>
 </segment>
 <segment>
-<pinref part="X7" gate="-2" pin="1"/>
 <pinref part="GND16" gate="1" pin="GND"/>
 <wire x1="7.62" y1="88.9" x2="2.54" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="X7" gate="-1" pin="1"/>
 </segment>
 </net>
 <net name="N$12" class="0">
@@ -8634,9 +8720,9 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="U$1" gate="G$1" pin="ADC19/GPIO26"/>
 <wire x1="25.4" y1="48.26" x2="40.64" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="25.4" y1="20.32" x2="-20.32" y2="20.32" width="0.1524" layer="91"/>
-<wire x1="-20.32" y1="20.32" x2="-20.32" y2="7.62" width="0.1524" layer="91"/>
-<pinref part="LV" gate="G$1" pin="2"/>
-<wire x1="-20.32" y1="7.62" x2="-17.78" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="-20.32" y1="20.32" x2="-20.32" y2="5.08" width="0.1524" layer="91"/>
+<pinref part="LV" gate="G$1" pin="3"/>
+<wire x1="-20.32" y1="5.08" x2="-17.78" y2="5.08" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$17" class="0">
@@ -8645,9 +8731,9 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pinref part="U$1" gate="G$1" pin="ADC18/GPIO25"/>
 <wire x1="22.86" y1="50.8" x2="40.64" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="22.86" x2="-22.86" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="-22.86" y1="22.86" x2="-22.86" y2="5.08" width="0.1524" layer="91"/>
-<pinref part="LV" gate="G$1" pin="3"/>
-<wire x1="-22.86" y1="5.08" x2="-17.78" y2="5.08" width="0.1524" layer="91"/>
+<wire x1="-22.86" y1="22.86" x2="-22.86" y2="7.62" width="0.1524" layer="91"/>
+<pinref part="LV" gate="G$1" pin="2"/>
+<wire x1="-22.86" y1="7.62" x2="-17.78" y2="7.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$18" class="0">
@@ -8907,8 +8993,8 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <net name="N$22" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
-<pinref part="X7" gate="-3" pin="1"/>
 <wire x1="17.78" y1="88.9" x2="12.7" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="X7" gate="-2" pin="1"/>
 </segment>
 </net>
 </nets>
