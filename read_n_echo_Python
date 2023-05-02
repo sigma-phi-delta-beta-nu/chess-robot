@@ -23,11 +23,11 @@ def echo_test():
     if(len(string)):
         print(string)
 
-def close_claw():
+def close():
     # this will close the claw to pick up the piece
-    # move servo soem distance
+    # move servo some distance
     # serial print the task is done
-    write_serial("close")
+    write_serial("clos")
 
     # wait until the C++ code is done doing stuff and read done
 
@@ -38,22 +38,22 @@ def close_claw():
     #     print(string1)
 
         
-def open_claw():
+def open():
     # this will open the cLAW
-    # move the ervo some distance
+    # move the servo some distance
     # serial print done
-    pass
+    write_serial("open")
 
-i = 1
-while(True):
-    if i <= 1:
-        close_claw()
-        # if read_serial() == "ESP: Done\n":
-        #     print(read_serial())
-        # else:
-        #     break
-        i += 1
-    else:
-        break
-print(read_serial())
-print(read_serial())
+# i = 1
+# while(True):
+#     if i <= 1:
+#         close()
+#         # if read_serial() == "ESP: Done\n":
+#         #     print(read_serial())
+#         # else:
+#         #     break
+#         i += 1
+#     else:
+#         break
+# print(read_serial())
+# print(read_serial())
