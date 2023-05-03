@@ -26,8 +26,8 @@ board = [
 ]
 
 # Define some colors
-WHITE = (100, 100, 100)
-BLACK = (0, 0, 0)
+WHITE = (233, 198, 175)
+BLACK = (160, 90, 44)
 GREY = (128, 128, 128)
 
 # Define the size of each square on the chess board
