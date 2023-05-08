@@ -44,6 +44,86 @@ def open():
     # serial print done
     write_serial("open")
 
+
+def put_down():
+    print("drop piece")
+
+
+def pick_up():
+    print("pick up piece")
+
+
+def take_photo():
+    photo = "get photo"
+    print("have photo")
+    return photo
+
+
+def find_pieces(image):
+    # use image to find all pieces
+    photo = take_photo()
+    print("use matlab script")
+    print("returns chessboard string")
+    out = "123"
+    return out
+
+
+def validate_board(chess_str):
+    print("validate chess string")
+    return False
+
+
+def move(board_str, piece_loc, goal_loc):
+    print(piece_loc)
+    pick_up()
+    print("go to end location")
+    print(goal_loc)
+    put_down()
+
+
+def capture(board_str, piece2_loc, piece1_loc):
+    print("go to piece1")
+    print(piece1_loc)
+    pick_up()
+    print("go to graveyard")
+    put_down()
+    print("go to piece2")
+    print(piece2_loc)
+    pick_up()
+    print("go to piece1")
+    print(piece1_loc)
+    put_down()
+
+def castle(board_str, king_loc, rook_loc, side):
+    print("go to correct king")
+    print(king_loc)
+    pick_up()
+    print("go to proper square")
+    print(side)
+    put_down()
+    print("go to correct rook")
+    print(rook_loc)
+    pick_up()
+    print("go to proper square")
+    print(side)
+    put_down()
+
+def promote(board_str, piece_loc, piece_type):
+    print("go to proper piece type")
+    print(piece_type)
+    pick_up()
+    print("go to where the piece is being promoted")
+    print(piece_loc + "one more space")
+    put_down()
+    print("go to promoted piece location")
+    print(piece_loc)
+    pick_up()
+    print("go to graveyard")
+    put_down()
+
+
+
+
 # i = 1
 # while(True):
 #     if i <= 1:
