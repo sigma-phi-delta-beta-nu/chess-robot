@@ -1,0 +1,33 @@
+function coordinate_str = GetCoordinate(locationX, locationY)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+% Define the coordinates
+x_coords = [0, 125, 245, 355, 467, 583, 695, 810, 1100];
+y_coords = [0, 150, 285, 395, 517, 633, 754, 872, 1100];
+
+% Define the coordinate letters and numbers
+letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
+numbers = ["1", "2", "3", "4", "5", "6", "7", "8"];
+
+% Initialize the coordinate string
+coordinate_str = "";
+
+% Find the x coordinate
+for i = 1:length(x_coords)-1
+    if locationX >= x_coords(i) && locationX < x_coords(i+1)
+        coordinate_str = coordinate_str + letters(i);
+        break
+    end 
+end
+coordinate_str = coordinate_str + ",";
+
+% Find the y coordinate
+for i = 1:length(y_coords)-1
+    if locationY >= y_coords(i) && locationY < y_coords(i+1)
+        coordinate_str = coordinate_str + numbers(i);
+        break
+    end 
+end
+
+
