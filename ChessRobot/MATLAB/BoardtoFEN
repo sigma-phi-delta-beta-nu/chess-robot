@@ -1,0 +1,37 @@
+function fen = positionToFEN(position)
+% POSITIONTOFEN Convert a chess position to FEN format
+%   POSITION is a 8x8 character array representing a chess position,
+%   where uppercase letters denote white pieces and lowercase letters denote black pieces. Empty squares are represented by 'x'.
+%   Returns a string representing the position in FEN format.
+
+    % Initialize variables for FEN string and empty square count
+    fen = '';
+    emptySquares = 0;
+    
+    % Iterate through each rank and file
+    for rank = 8:-1:1 % Start from the top rank (8) and move down to the bottom rank (1)
+        for file = 1:8 % Start from the left file (a) and move to the right (h)
+            piece = position(rank, file);
+            if piece == 'x' % Empty square
+                emptySquares = emptySquares + 1;
+            else % Piece present
+                if emptySquares > 0 % Add count of empty squares if any
+                    fen = [fen, num2str(emptySquares)];
+                    emptySquares = 0;
+                end
+                fen = [fen, piece];
+            end
+        end
+        if emptySquares > 0 % Add count of empty squares at the end of each rank
+            fen = [fen, num2str(emptySquares)];
+            emptySquares = 0;
+        end
+        if rank > 1 % Add slash between each rank except the last one
+            fen = [fen, '/'];
+        end
+    end
+    
+    % Add side to move, castling rights, en passant target square, and halfmove and fullmove counters
+    fen = [fen, ' w - - 0 1'];
+    
+end
