@@ -133,18 +133,16 @@ def capture(board_str, piece1_loc, piece2_loc):
     write_serial(piece2_loc)
     put_down()
 
-def castle(board_str, king_loc, rook_loc, side):
-    print("go to correct king")
+def castle(board_str, rook_loc):
+    print("go to correct king based off of rook loc")
     print(king_loc)
     pick_up()
-    print("go to proper square")
-    print(side)
+    print("go to proper square for king ")
     put_down()
     print("go to correct rook")
     print(rook_loc)
     pick_up()
-    print("go to proper square")
-    print(side)
+    print("go to proper square for rook")
     put_down()
 
 def promote(board_str, piece_loc, piece_type):
@@ -163,16 +161,17 @@ def promote(board_str, piece_loc, piece_type):
 
 
 
-# i = 1
-# while(True):
-#     if i <= 1:
-#         close()
-#         # if read_serial() == "ESP: Done\n":
-#         #     print(read_serial())
-#         # else:
-#         #     break
-#         i += 1
-#     else:
-#         break
-# print(read_serial())
-# print(read_serial())
+i = 1
+while(True):
+    if i <= 1:
+        close()
+        open()
+        # if read_serial() == "ESP: Done\n":
+        #     print(read_serial())
+        # else:
+        #     break
+        i += 1
+    else:
+        break
+print(read_serial())
+print(read_serial())

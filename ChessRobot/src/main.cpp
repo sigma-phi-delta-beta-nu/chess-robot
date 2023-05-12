@@ -45,8 +45,8 @@ void task_read_n_echo(void* p_params){
         idx = 0;
         // Serial.print("ESP: ");
         // Serial.print(str);
-        x_dist.put(10000);
-        Serial.println("x_dist set to 10000");
+        // x_dist.put(10000);
+        Serial.println(data);
 
           // if (data.indexOf(close)){
           // // x_dist.put(10000);
