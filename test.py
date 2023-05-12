@@ -162,16 +162,17 @@ def promote(board_str, piece_loc, piece_type):
     print("go to graveyard")
     put_down()
 
-# i = 1
-# while(True):
-#     if i <= 1:
-#         close()
-#         # if read_serial() == "ESP: Done\n":
-#         #     print(read_serial())
-#         # else:
-#         #     break
-#         i += 1
-#     else:
-#         break
-# print(read_serial())
-# print(read_serial())
+i = 1
+while(i < 2):
+    if i <= 1:
+        close()
+        print(read_serial())
+        open()
+        print(read_serial())
+        # if read_serial() == "ESP: Done\n":
+        #     print(read_serial())
+        # else:
+        #     break
+        i += 1
+    else:
+        break
