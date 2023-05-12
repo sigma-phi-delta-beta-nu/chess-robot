@@ -32,7 +32,6 @@ Share<uint8_t>  x_flag (0);
 
 void task_read_n_echo(void* p_params){
   String data;
-  String close = "close";
   while(true){
     if(Serial.available() > 0){
       c = Serial.read();          // read one byte
@@ -46,7 +45,8 @@ void task_read_n_echo(void* p_params){
         // Serial.print("ESP: ");
         // Serial.print(str);
         // x_dist.put(10000);
-        Serial.println(data);
+        Serial.print(data);
+        data = "";
 
           // if (data.indexOf(close)){
           // // x_dist.put(10000);

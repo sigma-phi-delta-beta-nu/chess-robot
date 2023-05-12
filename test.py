@@ -163,23 +163,19 @@ def promote(board_str, piece_loc, piece_type):
     put_down()
 
 i = 1
-while(i < 2):
-    if i <= 1:
-        close()
-        # if read_serial() == "clos":
-        #     print(read_serial())
-        # else:
-        #     break
-        print(read_serial())
-        open()
-        print(read_serial())
-        # if read_serial() == "ESP: Done\n":
-        #     print(read_serial())
-        # else:
-        #     break
-        i += 1
-    else:
-        i += 1
-
+while(i < 3):
+    close()
+    # if read_serial() == "clos":
+    #     print(read_serial())
+    # else:
+    #     break
+    print(read_serial())
+    open()
+    print(read_serial())
+    # if read_serial() == "ESP: Done\n":
+    #     print(read_serial())
+    # else:
+    #     break
+    i += 1
 # print(read_serial())
 # print(read_serial())
