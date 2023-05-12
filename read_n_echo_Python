@@ -46,11 +46,12 @@ def open():
 
 
 def put_down():
-    print("drop piece")
+    write_serial("drop")
 
 
 def pick_up():
     print("pick up piece")
+    write_serial("pick")
 
 
 def take_photo():
@@ -73,6 +74,40 @@ def validate_board(chess_str):
     return False
 
 
+
+# combine move and capture
+def make_move(board_str, piece1_loc, goal_loc, piece2_loc = None):
+    # no capture happens, as there is no second piece inputted
+    if (piece2_loc == None):
+        print(piece1_loc)
+        write_serial(piece1_loc)
+        pick_up()
+        print("go to end location")
+        print(goal_loc)
+        write_serial(goal_loc)
+        put_down()
+
+    # piece 1 captures piece 2
+    # capture happens and the piece1 is going to piece2 square
+    else:
+        print("go to piece2")
+        print(piece2_loc)
+        write_serial(piece2_loc)
+        pick_up()
+        print("go to graveyard")
+        write_serial("grav")
+        put_down()
+        print("go to piece1")
+        print(piece1_loc)
+        write_serial(piece1_loc)
+        pick_up()
+        print("go to goal")
+        print(goal_loc)
+        write_serial(goal_loc)
+        put_down()
+
+
+
 def move(board_str, piece_loc, goal_loc):
     print(piece_loc)
     pick_up()
@@ -81,17 +116,21 @@ def move(board_str, piece_loc, goal_loc):
     put_down()
 
 
-def capture(board_str, piece2_loc, piece1_loc):
-    print("go to piece1")
-    print(piece1_loc)
-    pick_up()
-    print("go to graveyard")
-    put_down()
+def capture(board_str, piece1_loc, piece2_loc):
     print("go to piece2")
     print(piece2_loc)
+    write_serial(piece2_loc)
     pick_up()
+    print("go to graveyard")
+    write_serial("grav")
+    put_down()
     print("go to piece1")
     print(piece1_loc)
+    write_serial(piece1_loc)
+    pick_up()
+    print("go to piece1")
+    print(piece2_loc)
+    write_serial(piece2_loc)
     put_down()
 
 def castle(board_str, king_loc, rook_loc, side):
