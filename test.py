@@ -6,7 +6,7 @@ port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
 # port = serial.Serial("COM9", 115200, timeout=1)
 
 
-def read_serial(num_char=28):
+def read_serial(num_char=4):
     string = port.read(num_char)
     return string.decode()
 
@@ -166,6 +166,10 @@ i = 1
 while(i < 2):
     if i <= 1:
         close()
+        # if read_serial() == "clos":
+        #     print(read_serial())
+        # else:
+        #     break
         print(read_serial())
         open()
         print(read_serial())
@@ -175,6 +179,7 @@ while(i < 2):
         #     break
         i += 1
     else:
-        break
+        i += 1
+
 # print(read_serial())
 # print(read_serial())
