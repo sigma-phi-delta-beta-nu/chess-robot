@@ -2,8 +2,8 @@ import serial
 import time
 
 MAX_BUFF_LEN = 255
-# port = serial.Serial("COM3", 115200, timeout=1)
-port = serial.Serial("COM9", 115200, timeout=1)
+port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
+# port = serial.Serial("COM9", 115200, timeout=1)
 
 
 def read_serial(num_char=28):
@@ -176,3 +176,5 @@ while(i < 2):
         i += 1
     else:
         break
+# print(read_serial())
+# print(read_serial())
