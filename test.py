@@ -108,13 +108,18 @@ def make_move(board_str, piece1_loc, goal_loc, piece2_loc=None):
         put_down()
 
 
-def move(board_str, piece_loc, goal_loc):
-    print(piece_loc)
-    pick_up()
-    print("go to end location")
-    print(goal_loc)
-    put_down()
-
+def move(piece_loc, goal_loc):
+    write_serial("move," + piece_loc + "," + goal_loc)
+    i = 0
+    while(i<30):
+        if read_serial(4) == "done":
+            done_flag = 1
+            break
+        else:
+            done_flag = 0
+            i += 1
+    if done_flag == 0:
+        print("error")  
 
 def capture(board_str, piece1_loc, piece2_loc):
     print("go to piece2")
@@ -162,20 +167,34 @@ def promote(board_str, piece_loc, piece_type):
     print("go to graveyard")
     put_down()
 
-i = 1
-while(i < 3):
-    close()
+i = 0
+# write_serial("test")
+#read_serial()
+port.reset_input_buffer()
+port.reset_output_buffer()
+while(i < 1):
+    #echo_test()
+    write_serial("test")
+    #echo_test()
+    #close()
     # if read_serial() == "clos":
     #     print(read_serial())
     # else:
     #     break
-    print(read_serial())
-    open()
-    print(read_serial())
+    # print(read_serial())
+    #open()
+    # print(read_serial())
     # if read_serial() == "ESP: Done\n":
     #     print(read_serial())
     # else:
     #     break
+    # move("A1","B3")
+    # write_serial("hello")
+    var = read_serial()
+    if (len(var)):
+        print(var)
+    #print(read_serial())
+    #print(read_serial())
     i += 1
-# print(read_serial())
-# print(read_serial())
+    #print(read_serial())
+    #print(read_serial())

@@ -18,6 +18,7 @@
 #include "shares.h"
 #include "task_x.h"
 #include "task_y.h"
+#include <iterator>
 
 #define MAX_BUFF_LEN 255
 
@@ -29,33 +30,86 @@ uint8_t idx = 0;
 Share<uint32_t> x_dist (0);
 Share<uint32_t> y_dist (0);
 Share<uint8_t>  x_flag (0);
+Share<uint8_t>  y_flag (0);
 
-void task_read_n_echo(void* p_params){
+// uint32_t x [] = {10000,2,3,4,5,6,7,8};
+// uint32_t y [] = {10000,2,3,4,5,6,7,8};
+// char letter [] = {'A','B','C','D','E','F','G','H'};
+
+// void dictionary(String location)
+// {
+//   for(int i = 0; i < sizeof(letter); i++)
+//   {
+//     if(location[0] == letter[i])
+//     {
+//       x_dist.put(x[i]);
+//     }
+//     y_dist.put(y[location[1]]);
+//   }
+// }
+
+void task_read_n_echo(void* p_params)
+{
   String data;
-  while(true){
-    if(Serial.available() > 0){
+  while(true)
+  {
+    if(Serial.available() > 0)
+    {
       c = Serial.read();          // read one byte
-      if (c != '\n'){              //still read
+      if (c != '\n')
+      {             //still read
         str[idx++] = c;
         data += c;
-        }
-      else{                           // done reading
+      }
+      else
+      {                       // done reading
         str[idx] = '\0';          // convert to str
         idx = 0;
-        // Serial.print("ESP: ");
-        // Serial.print(str);
+        // String strs[20];
+        // int StringCount = 0;
+        // while (data.length() > 0)
+        // {
+        //   int index = data.indexOf(',');
+        //   if (index == -1) // No comma found
+        //   {
+        //     strs[StringCount++] = data;
+        //     break;
+        //   }
+        //   else
+        //   {
+        //     strs[StringCount++] = data.substring(0, index);
+        //     data = data.substring(index+1);
+        //   }
+        // }
+        // if(strs[0] == "move")
+        // {
+        //   dictionary(strs[1]);
+        //   if(x_flag.get() == 1 && y_flag.get() == 1){
+        //     x_flag.put(0);
+        //     y_flag.put(0);
+        //     dictionary(strs[2]);
+        //     if(x_flag.get() == 1 && y_flag.get() == 1){
+        //       x_flag.put(0);
+        //       y_flag.put(0);
+        //     }
+        //   }
+        // }
+        
+        // Serial.print(data);
         // x_dist.put(10000);
+        // y_dist.put(10000);
+
         Serial.print(data);
-        data = "";
+        //data = "";
 
           // if (data.indexOf(close)){
           // // x_dist.put(10000);
           // }
-        }
       }
-    vTaskDelay(10);
     }
+    vTaskDelay(10);
   }
+}
 
 void setup(void) 
 {
@@ -73,4 +127,5 @@ void setup(void)
   xTaskCreate (task_read_n_echo, "SerialPort", 4000, NULL, 2, NULL);
 }
 
-void loop (void) {}
+void loop (void) {
+}

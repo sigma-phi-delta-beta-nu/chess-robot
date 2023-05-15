@@ -42,7 +42,7 @@ void task_x (void* p_params)
   while(true)
   {
     float desired_pos = x_dist.get();
-    // float desired_pos = 10000;
+    //float desired_pos = 10000;
     float encoder_current = encoder_x.getCount();
     // Serial.print(encoder_current);
     float error = desired_pos - encoder_current;
@@ -52,7 +52,8 @@ void task_x (void* p_params)
 
     if (error < 0.1 && error > -0.1)
     {
-      Serial.print("Done");
+      //Serial.print("Done");
+      x_flag.put(1);
     }
     
     // if (desired_pos > 0)

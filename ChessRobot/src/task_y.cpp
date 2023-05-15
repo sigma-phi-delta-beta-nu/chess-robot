@@ -52,7 +52,8 @@ void task_y (void* p_params)
 
     if (error < 0.1 && error > -0.1)
     {
-      Serial.print("Done");
+      //Serial.print("Done");
+      y_flag.put(1);
     }
     
     // if (desired_pos > 0)
