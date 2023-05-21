@@ -119,7 +119,8 @@ def move(piece_loc, goal_loc):
             done_flag = 0
             i += 1
     if done_flag == 0:
-        print("error")  
+        pass
+        #print("error")  
 
 def capture(board_str, piece1_loc, piece2_loc):
     print("go to piece2")
@@ -169,14 +170,14 @@ def promote(board_str, piece_loc, piece_type):
 
 i = 0
 # write_serial("test")
-#read_serial()
-port.reset_input_buffer()
-port.reset_output_buffer()
-while(i < 1):
+read_serial()
+# port.reset_input_buffer()
+# port.reset_output_buffer()
+while(i < 10):
     #echo_test()
-    write_serial("test")
+    #write_serial("clos")
     #echo_test()
-    #close()
+    close()
     # if read_serial() == "clos":
     #     print(read_serial())
     # else:
@@ -188,10 +189,10 @@ while(i < 1):
     #     print(read_serial())
     # else:
     #     break
-    # move("A1","B3")
+    #move("A1","B3")
     # write_serial("hello")
-    var = read_serial()
-    if (len(var)):
+    var = read_serial(1000)
+    if (len(var) and "install" not in var):
         print(var)
     #print(read_serial())
     #print(read_serial())

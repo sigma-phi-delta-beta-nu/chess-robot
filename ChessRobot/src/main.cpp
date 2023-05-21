@@ -32,8 +32,8 @@ Share<uint32_t> y_dist (0);
 Share<uint8_t>  x_flag (0);
 Share<uint8_t>  y_flag (0);
 
-// uint32_t x [] = {10000,2,3,4,5,6,7,8};
-// uint32_t y [] = {10000,2,3,4,5,6,7,8};
+// uint32_t x [] = {1000,2,3,4,5,6,7,8};
+// uint32_t y [] = {100,2,3,4,5,6,7,8};
 // char letter [] = {'A','B','C','D','E','F','G','H'};
 
 // void dictionary(String location)
@@ -63,8 +63,8 @@ void task_read_n_echo(void* p_params)
       }
       else
       {                       // done reading
-        str[idx] = '\0';          // convert to str
-        idx = 0;
+        // str[idx] = '\0';          // convert to str
+        // idx = 0;
         // String strs[20];
         // int StringCount = 0;
         // while (data.length() > 0)
@@ -87,19 +87,27 @@ void task_read_n_echo(void* p_params)
         //   if(x_flag.get() == 1 && y_flag.get() == 1){
         //     x_flag.put(0);
         //     y_flag.put(0);
+        //     Serial.print("done");
         //     dictionary(strs[2]);
         //     if(x_flag.get() == 1 && y_flag.get() == 1){
         //       x_flag.put(0);
         //       y_flag.put(0);
+        //       Serial.print("done");
         //     }
         //   }
         // }
-        
-        // Serial.print(data);
-        // x_dist.put(10000);
-        // y_dist.put(10000);
 
-        Serial.print(data);
+        //Serial.print('\n');
+        // if (x_flag.get() == 0)
+        // {
+        //   x_dist.put(1000);
+        // }
+
+        //Serial.print(y_dist.get());
+        x_dist.put(100);
+        //y_dist.put(1000);
+
+        //Serial.print(data);
         //data = "";
 
           // if (data.indexOf(close)){
@@ -118,13 +126,14 @@ void setup(void)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
 
   // Task which runs x-axis motor. It runs at a high priority
-  xTaskCreate (task_x, "X Axis", 2048, NULL, 5, NULL);
+  // stack depth was 2048
+  xTaskCreate (task_x, "X Axis", 20480, NULL, 5, NULL);
 
   // Task which runs y-axis motor. It runs at a high priority
-  xTaskCreate (task_y, "Y Axis", 2048, NULL, 5, NULL);
+  xTaskCreate (task_y, "Y Axis", 20480, NULL, 5, NULL);
 
   // Task which reads from the Serial Port
-  xTaskCreate (task_read_n_echo, "SerialPort", 4000, NULL, 2, NULL);
+  xTaskCreate (task_read_n_echo, "SerialPort", 40000, NULL, 2, NULL);
 }
 
 void loop (void) {

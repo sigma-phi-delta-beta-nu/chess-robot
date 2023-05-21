@@ -15,7 +15,7 @@
 // Pins for all inputs, keep in mind the PWM defines must be on PWM pins
 // the default pins listed are the ones used on the Redbot (ROB-12097) with
 // the exception of STBY which the Redbot controls with a physical switch
-#define BIN1 23
+#define BIN1 21
 #define BIN2 22
 #define PWMB 23
 #define STBY 19

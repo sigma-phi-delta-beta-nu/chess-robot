@@ -38,15 +38,16 @@ ESP32Encoder encoder_x;
 void task_x (void* p_params)
 {
   encoder_x.attachHalfQuad(CLK, DT);
+  encoder_x.clearCount();
 
   while(true)
   {
     float desired_pos = x_dist.get();
     //float desired_pos = 10000;
-    float encoder_current = encoder_x.getCount();
-    // Serial.print(encoder_current);
+    float encoder_current = -encoder_x.getCount();
     float error = desired_pos - encoder_current;
-    float new_input = 0.5*(error);
+    float new_input = 2*(error);
+    Serial.print(encoder_current);
 
     motor_x.drive(new_input);
 
