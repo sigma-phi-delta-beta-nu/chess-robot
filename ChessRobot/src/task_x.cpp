@@ -37,25 +37,69 @@ ESP32Encoder encoder_x;
 
 void task_x (void* p_params)
 {
-  encoder_x.attachHalfQuad(CLK, DT);
+  encoder_x.attachFullQuad(CLK, DT);
   encoder_x.clearCount();
+  x_flag.put(0);
 
   while(true)
   {
-    float desired_pos = x_dist.get();
-    //float desired_pos = 10000;
-    float encoder_current = -encoder_x.getCount();
-    float error = desired_pos - encoder_current;
-    float new_input = 2*(error);
-    Serial.print(encoder_current);
-
-    motor_x.drive(new_input);
-
-    if (error < 0.1 && error > -0.1)
+    if (x_flag.get() == 0)
     {
-      //Serial.print("Done");
-      x_flag.put(1);
+      // float desired_pos = 400;
+      float desired_pos = x_dist.get();
+      float encoder_current = encoder_x.getCount();
+      float error = desired_pos - encoder_current;
+      float new_input = 0.8*(error);
+      if (abs(new_input) > 10)
+      {
+        motor_x.drive(50);        
+      }
+      else
+      {
+        motor_x.drive(new_input);
+      }
+      // Serial.println(desired_pos);
+      // Serial.println(encoder_current);
+      // Serial.println(error);
+      if (error < 0.5 && error > -0.5)
+      {
+        x_flag.put(1);
+      }
     }
+    else
+    {
+      motor_x.brake();
+    }
+    // float desired_pos = 10000;
+    // float encoder_current = -encoder_x.getCount();
+    // float error = desired_pos - encoder_current;
+    // float new_input = -0.5*(error);
+    // motor_x.drive(new_input);
+    // Serial.println(desired_pos);
+    // Serial.println(encoder_current);
+    // Serial.println(error);
+    // if (error < 0.1 && error > -0.1)
+    // {
+    //   Serial.print("done");
+    //   x_flag.put(1);
+    //   motor_x.brake();
+    // }
+    // float desired_pos = x_dist.get();
+    // //float desired_pos = 10000;
+    // float encoder_current = -encoder_x.getCount();
+    // float error = desired_pos - encoder_current;
+    // float new_input = -2*(error);
+    // Serial.println(desired_pos);
+    // Serial.println(encoder_current);
+    // Serial.println(error);
+
+    //Serial.print(encoder_current);
+
+    // if (error < 0.1 && error > -0.1)
+    // {
+    //   //Serial.print("Done");
+    //   x_flag.put(1);
+    // }
     
     // if (desired_pos > 0)
     // {

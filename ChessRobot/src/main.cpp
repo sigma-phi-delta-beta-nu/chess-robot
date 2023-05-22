@@ -32,21 +32,39 @@ Share<uint32_t> y_dist (0);
 Share<uint8_t>  x_flag (0);
 Share<uint8_t>  y_flag (0);
 
-// uint32_t x [] = {1000,2,3,4,5,6,7,8};
-// uint32_t y [] = {100,2,3,4,5,6,7,8};
-// char letter [] = {'A','B','C','D','E','F','G','H'};
+uint32_t x [] = {400,800,1200,1600,2000,2400,2800,3200};
+uint32_t y [] = {400,800,1200,1600,2000,2400,2800,3200};
+char letter [] = {'A','B','C','D','E','F','G','H'};
 
-// void dictionary(String location)
-// {
-//   for(int i = 0; i < sizeof(letter); i++)
-//   {
-//     if(location[0] == letter[i])
-//     {
-//       x_dist.put(x[i]);
-//     }
-//     y_dist.put(y[location[1]]);
-//   }
-// }
+void dictionary1(String location)
+{
+  for(int i = 0; i < sizeof(letter); i++)
+  {
+    if(location[0] == letter [i])
+    {
+      x_dist.put(x[i]);
+    }
+    if(i == location[0])
+    {
+      y_dist.put(y[i]);
+    }
+  }
+}
+
+void dictionary2(String location)
+{
+  for(int i = 0; i < sizeof(letter); i++)
+  {
+    if(location[0] == letter[i])
+    {
+      x_dist.put(x[i]);
+    }
+    if(i == location[1])
+    {
+      y_dist.put(y[i]);
+    }
+  }
+}
 
 void task_read_n_echo(void* p_params)
 {
@@ -57,45 +75,57 @@ void task_read_n_echo(void* p_params)
     {
       c = Serial.read();          // read one byte
       if (c != '\n')
-      {             //still read
+      {                           //still read
         str[idx++] = c;
         data += c;
       }
       else
-      {                       // done reading
-        // str[idx] = '\0';          // convert to str
-        // idx = 0;
-        // String strs[20];
-        // int StringCount = 0;
-        // while (data.length() > 0)
-        // {
-        //   int index = data.indexOf(',');
-        //   if (index == -1) // No comma found
-        //   {
-        //     strs[StringCount++] = data;
-        //     break;
-        //   }
-        //   else
-        //   {
-        //     strs[StringCount++] = data.substring(0, index);
-        //     data = data.substring(index+1);
-        //   }
-        // }
-        // if(strs[0] == "move")
-        // {
-        //   dictionary(strs[1]);
-        //   if(x_flag.get() == 1 && y_flag.get() == 1){
-        //     x_flag.put(0);
-        //     y_flag.put(0);
-        //     Serial.print("done");
-        //     dictionary(strs[2]);
-        //     if(x_flag.get() == 1 && y_flag.get() == 1){
-        //       x_flag.put(0);
-        //       y_flag.put(0);
-        //       Serial.print("done");
-        //     }
-        //   }
-        // }
+      {                           // done reading
+        str[idx] = '\0';          // convert to str
+        idx = 0;
+        String strs[20];
+        int StringCount = 0;
+        while (data.length() > 0)
+        {
+          int index = data.indexOf(',');
+          if (index == -1) // No comma found
+          {
+            strs[StringCount++] = data;
+            break;
+          }
+          else
+          {
+            strs[StringCount++] = data.substring(0, index);
+            data = data.substring(index+1);
+          }
+        }
+
+        if(strs[0] == "move")
+        {
+          dictionary2(strs[1]);
+          if(x_flag.get() == 1 && y_flag.get() == 1)
+          {
+            x_flag.put(0);
+            y_flag.put(0);
+            dictionary2(strs[2]);
+            if(x_flag.get() == 1 && y_flag.get() == 1)
+            {
+              x_flag.put(0);
+              y_flag.put(0);
+              Serial.print("done");
+            }
+          }
+        }
+        else if(strs[0] == "movx")
+        {
+          dictionary1(strs[1]);
+          if(x_flag.get() == 1)
+          {
+            x_flag.put(0);
+            Serial.print("done");
+          }
+        }
+      
 
         //Serial.print('\n');
         // if (x_flag.get() == 0)
@@ -104,7 +134,7 @@ void task_read_n_echo(void* p_params)
         // }
 
         //Serial.print(y_dist.get());
-        x_dist.put(100);
+        //x_dist.put(400);
         //y_dist.put(1000);
 
         //Serial.print(data);

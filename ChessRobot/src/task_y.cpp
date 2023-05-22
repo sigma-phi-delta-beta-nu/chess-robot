@@ -37,23 +37,37 @@ ESP32Encoder encoder_y;
 
 void task_y (void* p_params)
 {
-  encoder_y.attachHalfQuad(CLK, DT);
+  encoder_y.attachFullQuad(CLK, DT);
+  encoder_y.clearCount();
+  y_flag.put(0);
 
   while(true)
   {
-    float desired_pos = y_dist.get();
-    // float desired_pos = 10000;
-    float encoder_current = encoder_y.getCount();
-    // Serial.print(encoder_current);
-    float error = desired_pos - encoder_current;
-    float new_input = 0.5*(error);
-
-    motor_y.drive(new_input);
-
-    if (error < 0.1 && error > -0.1)
+    if (y_flag.get() == 0)
     {
-      //Serial.print("Done");
-      y_flag.put(1);
+      float desired_pos = y_dist.get();
+      // float desired_pos = 10000;
+      float encoder_current = encoder_y.getCount();
+      // Serial.print(encoder_current);
+      float error = desired_pos - encoder_current;
+      float new_input = 0.8*(error);
+      if (abs(new_input) > 10)
+      {
+        motor_y.drive(50);        
+      }
+      else
+      {
+        motor_y.drive(new_input);
+      }
+      if (error < 0.5 && error > -0.5)
+      {
+        //Serial.print("Done");
+        y_flag.put(1);
+      }
+    }
+    else
+    {
+      motor_y.brake();
     }
     
     // if (desired_pos > 0)

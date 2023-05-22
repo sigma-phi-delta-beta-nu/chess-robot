@@ -120,7 +120,21 @@ def move(piece_loc, goal_loc):
             i += 1
     if done_flag == 0:
         pass
-        #print("error")  
+        #print("error")
+
+def move_x(x_loc):
+    write_serial("movx," + x_loc)
+    i = 0
+    while(i<30):
+        if read_serial(4) == "done":
+            done_flag = 1
+            break
+        else:
+            done_flag = 0
+            i += 1
+    if done_flag == 0:
+        pass
+
 
 def capture(board_str, piece1_loc, piece2_loc):
     print("go to piece2")
@@ -173,25 +187,30 @@ i = 0
 read_serial()
 # port.reset_input_buffer()
 # port.reset_output_buffer()
-while(i < 10):
+while(True):
     #echo_test()
     #write_serial("clos")
     #echo_test()
-    close()
+    # if i <= 1:
+    #     close()
     # if read_serial() == "clos":
     #     print(read_serial())
     # else:
     #     break
     # print(read_serial())
-    #open()
+    # open()
     # print(read_serial())
     # if read_serial() == "ESP: Done\n":
     #     print(read_serial())
     # else:
     #     break
+    
     #move("A1","B3")
+    if(i == 1):
+        move_x("A")
+
     # write_serial("hello")
-    var = read_serial(1000)
+    var = read_serial()
     if (len(var) and "install" not in var):
         print(var)
     #print(read_serial())
