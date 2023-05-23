@@ -63,6 +63,7 @@ void task_x (void* p_params)
       // Serial.println(error);
       if (error < 0.5 && error > -0.5)
       {
+        x_done.put(1);
         x_flag.put(1);
       }
     }

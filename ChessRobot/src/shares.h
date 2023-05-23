@@ -22,6 +22,8 @@ extern Share<uint32_t> y_dist;
 // Flags for indicating that the position has been reached.
 extern Share<uint8_t> x_flag;
 extern Share<uint8_t> y_flag;
+extern Share<uint8_t> x_done;
+extern Share<uint8_t> y_done;
 
 extern Share<uint8_t> z_trigger;
 extern Share<uint8_t> claw_trigger;

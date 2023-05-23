@@ -31,6 +31,8 @@ Share<uint32_t> x_dist (0);
 Share<uint32_t> y_dist (0);
 Share<uint8_t>  x_flag (0);
 Share<uint8_t>  y_flag (0);
+Share<uint8_t>  x_done (0);
+Share<uint8_t>  y_done (0);
 
 uint32_t x [] = {400,800,1200,1600,2000,2400,2800,3200};
 uint32_t y [] = {400,800,1200,1600,2000,2400,2800,3200};
@@ -119,10 +121,10 @@ void task_read_n_echo(void* p_params)
         else if(strs[0] == "movx")
         {
           dictionary1(strs[1]);
-          if(x_flag.get() == 1)
+          if(x_done.get() == 1)
           {
-            x_flag.put(0);
             Serial.print("done");
+            x_done.put(0);
           }
         }
       
