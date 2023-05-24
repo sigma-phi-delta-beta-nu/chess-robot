@@ -2,8 +2,8 @@ import serial
 import time
 
 MAX_BUFF_LEN = 255
-port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
-# port = serial.Serial("COM9", 115200, timeout=1)
+# port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
+port = serial.Serial("COM3", 115200, timeout=1)
 
 
 def read_serial(num_char=4):
@@ -187,7 +187,7 @@ i = 0
 read_serial()
 # port.reset_input_buffer()
 # port.reset_output_buffer()
-while(True):
+while(i<2):
     #echo_test()
     #write_serial("clos")
     #echo_test()
