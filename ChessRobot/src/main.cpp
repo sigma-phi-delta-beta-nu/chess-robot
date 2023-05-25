@@ -18,6 +18,7 @@
 #include "shares.h"
 #include "task_x.h"
 #include "task_y.h"
+#include "task_limit.h"
 #include <iterator>
 
 #define MAX_BUFF_LEN 255
@@ -102,7 +103,25 @@ void task_read_n_echo(void* p_params)
           }
         }
 
-        if(strs[0] == "move")
+        if(strs[0] == "homy")
+        {
+          y_dist.put(-10000);
+          if (y_done.get() == 1)
+          {
+            Serial.print("done");
+            y_done.put(0);
+          }
+        }
+        else if(strs[0] == "homx")
+        {
+          x_dist.put(-10000);
+          if (x_done.get() == 1)
+          {
+            Serial.print("done");
+            x_done.put(0);
+          }
+        }
+        else if(strs[0] == "move")
         {
           dictionary2(strs[1]);
           if(x_flag.get() == 1 && y_flag.get() == 1)
@@ -118,6 +137,7 @@ void task_read_n_echo(void* p_params)
             }
           }
         }
+
         else if(strs[0] == "movx")
         {
           dictionary1(strs[1]);
@@ -127,6 +147,8 @@ void task_read_n_echo(void* p_params)
             x_done.put(0);
           }
         }
+
+
       
 
         //Serial.print('\n');
@@ -163,6 +185,9 @@ void setup(void)
 
   // Task which runs y-axis motor. It runs at a high priority
   xTaskCreate (task_y, "Y Axis", 20480, NULL, 5, NULL);
+
+  // Task which runs the limit switches. It runs at a high priority
+  xTaskCreate (task_limit, "Limit Switches", 20480, NULL, 5, NULL);
 
   // Task which reads from the Serial Port
   xTaskCreate (task_read_n_echo, "SerialPort", 40000, NULL, 2, NULL);
