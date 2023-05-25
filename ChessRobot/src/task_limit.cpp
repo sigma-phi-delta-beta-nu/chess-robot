@@ -15,6 +15,8 @@ void task_limit (void* p_params)
     
     while(true)
     {
+        limitswitch_x.loop();
+        limitswitch_y.loop();
         if (limitswitch_x.isPressed())
         {
             x_done.put(1);
