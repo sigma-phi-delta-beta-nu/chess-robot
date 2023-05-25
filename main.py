@@ -17,11 +17,11 @@ def task_chess(state = S0_HOME):
     read_serial()
     while True:
         if state == S0_HOME:
-            home_y()
+            home_x()
             if read() == "done":
                 state = S1_MOVE
         elif state == S1_MOVE:
-            move_y(1)
+            move_x("A")
             if read() == "done":
                 state = S2_WAIT
 
