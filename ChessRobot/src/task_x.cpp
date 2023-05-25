@@ -70,6 +70,7 @@ void task_x (void* p_params)
     else
     {
       motor_x.brake();
+      x_flag.put(0);
     }
     // float desired_pos = 10000;
     // float encoder_current = -encoder_x.getCount();

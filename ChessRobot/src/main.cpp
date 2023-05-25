@@ -110,7 +110,6 @@ void task_read_n_echo(void* p_params)
           {
             Serial.print("done");
             y_done.put(0);
-            y_done.put(0);
           }
         }
         else if(strs[0] == "homx")
@@ -120,7 +119,6 @@ void task_read_n_echo(void* p_params)
           {
             Serial.print("done");
             x_done.put(0);
-            x_flag.put(0);
           }
         }
         else if(strs[0] == "move")

@@ -68,6 +68,7 @@ void task_y (void* p_params)
     else
     {
       motor_y.brake();
+      y_flag.put(0);
     }
     
     // if (desired_pos > 0)
