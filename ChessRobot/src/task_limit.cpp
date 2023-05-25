@@ -5,8 +5,8 @@
 #include "taskqueue.h"
 #include "shares.h"
 
-ezButton limitswitch_x(32);
-ezButton limitswitch_y(33);
+ezButton limitswitch_x(32, INPUT_PULLUP);
+ezButton limitswitch_y(33, INPUT_PULLUP);
 
 void task_limit (void* p_params)
 {
@@ -25,7 +25,7 @@ void task_limit (void* p_params)
         if (limitswitch_y.isPressed())
         {
             y_done.put(1);
-            x_flag.put(1);
+            y_flag.put(1);
         }
         vTaskDelay(10);
     }
