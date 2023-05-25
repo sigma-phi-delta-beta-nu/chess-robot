@@ -6,7 +6,7 @@ S0_HOME             = const(0)
 ## State 1 of the user interface task
 S1_MOVE             = const(1)
 ## State 2 of the user interface task
-S1_WAIT             = const(1)
+S2_WAIT             = const(2)
 
 MAX_BUFF_LEN = 255
 # port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
@@ -21,7 +21,7 @@ def task_chess(state = S0_HOME):
             if read() == "done":
                 state = S1_MOVE
         elif state == S1_MOVE:
-            move_y()
+            move_y(1)
             if read() == "done":
                 state = S2_WAIT
 
