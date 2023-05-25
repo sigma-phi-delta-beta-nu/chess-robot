@@ -208,6 +208,7 @@ while(i<2):
     #move("A1","B3")
     if(i == 1):
         move_x("A")
+        #move_y(1)
 
     # write_serial("hello")
     var = read_serial()
