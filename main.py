@@ -2,11 +2,11 @@ import serial
 import time
 
 ## State 0 of the user interface task
-S0_HOME             = const(0)
+S0_HOME             = 0
 ## State 1 of the user interface task
-S1_MOVE             = const(1)
+S1_MOVE             = 1
 ## State 2 of the user interface task
-S2_WAIT             = const(2)
+S2_WAIT             = 2
 
 MAX_BUFF_LEN = 255
 # port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
