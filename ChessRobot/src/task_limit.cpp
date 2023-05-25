@@ -20,10 +20,12 @@ void task_limit (void* p_params)
         if (limitswitch_x.isPressed())
         {
             x_done.put(1);
+            x_flag.put(1);
         }     
         if (limitswitch_y.isPressed())
         {
             y_done.put(1);
+            x_flag.put(1);
         }
         vTaskDelay(10);
     }

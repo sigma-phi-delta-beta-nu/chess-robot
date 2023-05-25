@@ -36,7 +36,7 @@ Share<uint8_t>  x_done (0);
 Share<uint8_t>  y_done (0);
 
 uint32_t x [] = {400,800,1200,1600,2000,2400,2800,3200};
-uint32_t y [] = {400,800,1200,1600,2000,2400,2800,3200};
+uint32_t y [] = {0,400,800,1200,1600,2000,2400,2800,3200};
 char letter [] = {'A','B','C','D','E','F','G','H'};
 
 void dictionary1(String location)
@@ -110,6 +110,7 @@ void task_read_n_echo(void* p_params)
           {
             Serial.print("done");
             y_done.put(0);
+            y_done.put(0);
           }
         }
         else if(strs[0] == "homx")
@@ -119,6 +120,7 @@ void task_read_n_echo(void* p_params)
           {
             Serial.print("done");
             x_done.put(0);
+            x_flag.put(0);
           }
         }
         else if(strs[0] == "move")
