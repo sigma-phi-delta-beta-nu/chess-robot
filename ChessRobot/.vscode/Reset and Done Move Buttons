@@ -1,0 +1,70 @@
+#include <Arduino.h>
+
+const int DMButton = 2; // Done Move Button
+const int ResetButton = 15; // Reset Button
+int DMBState = 0;
+int ResetState = 0;
+bool r = false; // reset flag
+bool c = false; // calibration flag
+bool m = false; // moving flag
+bool bicp = false; // Board in camera position flag
+
+void setup() {
+  pinMode(DMButton, INPUT);
+  pinMode(ResetButton, INPUT);
+  // Set up the Serial port
+  Serial.begin(9600);
+
+}
+
+void calibration(){ // Initial calibration and/or post reset button calibration
+  //insert code to autohome
+  //if both limit switches have been hit
+  c = true;
+}
+
+void moving_board(){ // move board
+  //code for moving board back and forth when board is not in players hands
+  m = true;
+  Serial.println("board is moving...");
+  delay(2000);
+  Serial.println("AI is making a decision...");
+  delay(1000);
+  Serial.println("board is moving back..");
+  delay(2000);
+  Serial.println("Make a move!");
+  m = false;
+}
+
+void reset(){ // reset button
+  r = true;
+  c = false;
+  Serial.println("Reset... Now calibrating");
+  calibration();
+  delay(5000);
+  Serial.println("Reset is complete!");
+  r = false;
+}
+
+void loop() { // Done Move Button Check
+  DMBState = digitalRead(DMButton);
+  if (DMBState == HIGH && m == false && bicp == false) {
+    moving_board();
+  }
+  ResetState = digitalRead(ResetButton);
+  if (ResetState == HIGH && r == false) {
+    reset();
+  }
+  
+}
+
+int main() {
+  calibration();
+  while (c == true)
+  {
+    // code
+  }
+  if(c == false){
+    Serial.println("board has reset");
+  }
+}
