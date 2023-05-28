@@ -72,9 +72,12 @@ void dictionary2(String location)
 void task_read_n_echo(void* p_params)
 {
   String data;
+  bool ready_flag = 1;
+  String strs[20];
+  int StringCount = 0;
   while(true)
   {
-    if(Serial.available() > 0)
+    if(Serial.available() > 0 && ready_flag == 1)
     {
       c = Serial.read();          // read one byte
       if (c != '\n')
@@ -86,8 +89,6 @@ void task_read_n_echo(void* p_params)
       {                           // done reading
         str[idx] = '\0';          // convert to str
         idx = 0;
-        String strs[20];
-        int StringCount = 0;
         while (data.length() > 0)
         {
           int index = data.indexOf(',');
@@ -102,55 +103,56 @@ void task_read_n_echo(void* p_params)
             data = data.substring(index+1);
           }
         }
-
-        if(strs[0] == "homy")
+        ready_flag == 0;
+        Serial.print(strs[0]);
+      }
+    }
+    else
+    {
+      if(strs[0] == "homy")
+      {
+        y_dist.put(-10000);
+        if (y_flag.get() == 1)
         {
-          y_dist.put(-10000);
-          if (y_done.get() == 1)
-          {
-            Serial.print("done");
-            y_done.put(0);
-          }
+          Serial.print("done");
+          ready_flag = 1;
         }
-        else if(strs[0] == "homx")
+      }
+      else if(strs[0] == "homx")
+      {
+        x_dist.put(-10000);
+        if (x_flag.get() == 1)
         {
-          x_dist.put(-10000);
-          if (x_done.get() == 1)
-          {
-            Serial.print("done");
-            x_done.put(0);
-          }
+          Serial.print("done");
+          ready_flag = 1;
         }
-        else if(strs[0] == "move")
+      }
+      else if(strs[0] == "move")
+      {
+        dictionary2(strs[1]);
+        if(x_flag.get() == 1 && y_flag.get() == 1)
         {
-          dictionary2(strs[1]);
+          x_flag.put(0);
+          y_flag.put(0);
+          dictionary2(strs[2]);
           if(x_flag.get() == 1 && y_flag.get() == 1)
           {
             x_flag.put(0);
             y_flag.put(0);
-            dictionary2(strs[2]);
-            if(x_flag.get() == 1 && y_flag.get() == 1)
-            {
-              x_flag.put(0);
-              y_flag.put(0);
-              Serial.print("done");
-            }
-          }
-        }
-
-        else if(strs[0] == "movx")
-        {
-          dictionary1(strs[1]);
-          if(x_done.get() == 1)
-          {
             Serial.print("done");
-            x_done.put(0);
           }
         }
+      }
 
-
-      
-
+      else if(strs[0] == "movx")
+      {
+        dictionary1(strs[1]);
+        if(x_flag.get() == 1)
+        {
+          Serial.print("done");
+          x_flag.put(0);
+        }
+      }
         //Serial.print('\n');
         // if (x_flag.get() == 0)
         // {
@@ -167,7 +169,6 @@ void task_read_n_echo(void* p_params)
           // if (data.indexOf(close)){
           // // x_dist.put(10000);
           // }
-      }
     }
     vTaskDelay(10);
   }

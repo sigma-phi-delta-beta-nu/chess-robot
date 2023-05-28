@@ -9,8 +9,8 @@ S1_MOVE             = 1
 S2_WAIT             = 2
 
 MAX_BUFF_LEN = 255
-# port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
-port = serial.Serial("COM3", 115200, timeout=1)
+port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
+# port = serial.Serial("COM3", 115200, timeout=1)
 
 
 def task_chess(state = S0_HOME):
@@ -18,17 +18,18 @@ def task_chess(state = S0_HOME):
     while True:
         if state == S0_HOME:
             home_x()
-            if read() == "done":
+            reading = read()
+            if reading == "done":
                 state = S1_MOVE
         elif state == S1_MOVE:
             move_x("A")
-            if read() == "done":
+            reading = read()
+            if reading == "done":
                 state = S2_WAIT
 
 def read_serial(num_char=4):
     string = port.read(num_char)
     return string.decode()
-
 
 def write_serial(cmd):
     cmd = cmd + '\n'
@@ -53,6 +54,7 @@ def read():
     while True:
         var = read_serial()
         if (len(var) and "done" in var):
+            print(var)
             return "done"
 
 def close():
@@ -224,6 +226,7 @@ def promote(board_str, piece_loc, piece_type):
     put_down()
 
 task_chess()
+# move_x("A")
 # i = 0
 # read_serial()
 # while(i<2):
