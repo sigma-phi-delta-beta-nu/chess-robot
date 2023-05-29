@@ -51,11 +51,12 @@ def home_y():
     write_serial("homy")
 
 def read():
-    while True:
-        var = read_serial()
-        if (len(var) and "done" in var):
-            print(var)
-            return "done"
+    # while True:
+    var = read_serial()
+    # print(var)
+    if (len(var) and "done" in var):
+        #print(var)
+        return "done"
 
 def close():
     # this will close the claw to pick up the piece
@@ -226,19 +227,14 @@ def promote(board_str, piece_loc, piece_type):
     put_down()
 
 task_chess()
-# move_x("A")
+
 # i = 0
 # read_serial()
-# while(i<2):
-#     #echo_test()
-#     #write_serial("clos")
-#     #echo_test()
-    
-#     #move("A1","B3")
+# while(True):
 #     if(i == 1):
 #         move_x("A")
 #         #move_y(1)
-#     var = read_serial()
+#     var = read_serial(100)
 #     if (len(var) and "install" not in var):
 #         print(var)
 #     i += 1

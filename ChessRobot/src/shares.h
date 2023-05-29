@@ -28,4 +28,7 @@ extern Share<uint8_t> y_done;
 extern Share<uint8_t> z_trigger;
 extern Share<uint8_t> claw_trigger;
 
+extern Share<uint8_t> y_clear;
+extern Share<uint8_t> x_clear;
+
 #endif // _SHARES_H_

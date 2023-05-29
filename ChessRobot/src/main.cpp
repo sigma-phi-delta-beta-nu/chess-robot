@@ -34,6 +34,8 @@ Share<uint8_t>  x_flag (0);
 Share<uint8_t>  y_flag (0);
 Share<uint8_t>  x_done (0);
 Share<uint8_t>  y_done (0);
+Share<uint8_t>  x_clear (0);
+Share<uint8_t>  y_clear (0);
 
 uint32_t x [] = {400,800,1200,1600,2000,2400,2800,3200};
 uint32_t y [] = {0,400,800,1200,1600,2000,2400,2800,3200};
@@ -104,7 +106,7 @@ void task_read_n_echo(void* p_params)
           }
         }
         ready_flag == 0;
-        Serial.print(strs[0]);
+        // x_flag.put(0);
       }
     }
     else
@@ -116,6 +118,7 @@ void task_read_n_echo(void* p_params)
         {
           Serial.print("done");
           ready_flag = 1;
+          y_clear.put(1);
         }
       }
       else if(strs[0] == "homx")
@@ -125,6 +128,7 @@ void task_read_n_echo(void* p_params)
         {
           Serial.print("done");
           ready_flag = 1;
+          x_clear.put(1);
         }
       }
       else if(strs[0] == "move")
@@ -150,7 +154,7 @@ void task_read_n_echo(void* p_params)
         if(x_flag.get() == 1)
         {
           Serial.print("done");
-          x_flag.put(0);
+          ready_flag = 1;
         }
       }
         //Serial.print('\n');

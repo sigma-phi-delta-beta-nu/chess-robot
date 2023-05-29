@@ -63,12 +63,17 @@ void task_y (void* p_params)
       {
         //Serial.print("Done");
         y_flag.put(1);
-
       }
     }
     else
     {
       motor_y.brake();
+      if (y_clear.get() == 1)
+      {
+        encoder_y.clearCount();
+        y_dist.put(0);
+        y_clear.put(0);
+      }
     }
     
     // if (desired_pos > 0)
