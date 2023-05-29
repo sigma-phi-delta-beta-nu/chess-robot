@@ -14,7 +14,7 @@ void task_button (void* p_params)
     while(true)
     {
         done_button.loop();
-        if (done_button.isPressed())
+        if (done_button.isReleased() || done_button.isPressed())
         {
             button_flag.put(1);
         }     

@@ -50,9 +50,13 @@ void task_x (void* p_params)
       float encoder_current = encoder_x.getCount();
       float error = desired_pos - encoder_current;
       float new_input = 0.8*(error);
-      if (abs(new_input) > 10)
+      if (new_input > 10)
       {
         motor_x.drive(50);        
+      }
+      else if (new_input < -10)
+      {
+        motor_x.drive(-50);
       }
       else
       {

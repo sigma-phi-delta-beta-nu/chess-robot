@@ -29,8 +29,8 @@ char str[MAX_BUFF_LEN];
 uint8_t idx = 0;
 
 // Create share variables for the pwm values for the x and y motors.
-Share<uint32_t> x_dist (0);
-Share<uint32_t> y_dist (0);
+Share<int32_t> x_dist (0);
+Share<int32_t> y_dist (0);
 Share<uint8_t>  x_flag (0);
 Share<uint8_t>  y_flag (0);
 Share<uint8_t>  x_done (0);
@@ -42,8 +42,9 @@ Share<uint8_t>  button_flag (0);
 uint32_t x [] = {400,800,1200,1600,2000,2400,2800,3200};
 uint32_t y [] = {0,400,800,1200,1600,2000,2400,2800,3200};
 char letter [] = {'A','B','C','D','E','F','G','H'};
+char num [] = {'0','1','2','3','4','5','6','7','8'};
 
-void dictionary1(String location)
+void dictionary_x(String location)
 {
   for(int i = 0; i < sizeof(letter); i++)
   {
@@ -51,7 +52,14 @@ void dictionary1(String location)
     {
       x_dist.put(x[i]);
     }
-    if(i == location[0])
+  }
+}
+
+void dictionary_y(String location)
+{
+  for(int i = 0; i < sizeof(num); i++)
+  {
+    if(location[0] == num [i])
     {
       y_dist.put(y[i]);
     }
@@ -64,11 +72,11 @@ void dictionary2(String location)
   {
     if(location[0] == letter[i])
     {
-      x_dist.put(x[i]);
+      x_dist.put(-x[i]);
     }
     if(i == location[1])
     {
-      y_dist.put(y[i]);
+      y_dist.put(-y[i]);
     }
   }
 }
@@ -135,10 +143,10 @@ void task_read_n_echo(void* p_params)
       }
       else if(strs[0] == "wait")
       {
-        Serial.print("push");
+        // Serial.print("done");
         if (button_flag.get() == 1)
         {
-          Serial.print("push");
+          Serial.print("done");
           ready_flag = 1;
         }
       }
@@ -161,8 +169,17 @@ void task_read_n_echo(void* p_params)
 
       else if(strs[0] == "movx")
       {
-        dictionary1(strs[1]);
+        dictionary_x(strs[1]);
         if(x_flag.get() == 1)
+        {
+          Serial.print("done");
+          ready_flag = 1;
+        }
+      }
+      else if(strs[0] == "movy")
+      {
+        dictionary_y(strs[1]);
+        if(y_flag.get() == 1)
         {
           Serial.print("done");
           ready_flag = 1;

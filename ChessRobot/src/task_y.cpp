@@ -55,6 +55,10 @@ void task_y (void* p_params)
       {
         motor_y.drive(50);        
       }
+      else if (abs(new_input) > -10)
+      {
+        motor_y.drive(-50);        
+      }
       else
       {
         motor_y.drive(new_input);

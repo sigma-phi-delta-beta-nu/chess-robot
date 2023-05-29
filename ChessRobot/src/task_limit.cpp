@@ -17,11 +17,11 @@ void task_limit (void* p_params)
     {
         limitswitch_x.loop();
         limitswitch_y.loop();
-        if (limitswitch_x.isPressed())
+        if (limitswitch_x.isReleased() || limitswitch_x.getState() == HIGH)
         {
             x_flag.put(1);
         }     
-        if (limitswitch_y.isPressed())
+        if (limitswitch_y.isReleased() || limitswitch_y.getState() == HIGH)
         {
             y_flag.put(1);
         }

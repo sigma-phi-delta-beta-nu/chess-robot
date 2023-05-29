@@ -19,18 +19,19 @@ def task_chess(state = S0_HOME):
     read_serial()
     while True:
         if state == S0_HOME:
-            write_serial("homx")
+            #write_serial("homx")
+            write_serial("homy")
             reading = read()
             if reading == "done":
                 state = S1_BUTTON
         elif state == S1_BUTTON:
             write_serial("wait")
             reading = read()
-            print(reading)
-            if reading == "push":
+            if reading == "done":
                 state = S2_MOVE
         elif state == S2_MOVE:
-            move_x("A")
+            #move_x("A")
+            move_y("1")
             reading = read()
             if reading == "done":
                 state = S3_WAIT
