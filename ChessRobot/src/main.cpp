@@ -19,6 +19,7 @@
 #include "task_x.h"
 #include "task_y.h"
 #include "task_limit.h"
+#include "task_button.h"
 #include <iterator>
 
 #define MAX_BUFF_LEN 255
@@ -36,6 +37,7 @@ Share<uint8_t>  x_done (0);
 Share<uint8_t>  y_done (0);
 Share<uint8_t>  x_clear (0);
 Share<uint8_t>  y_clear (0);
+Share<uint8_t>  button_flag (0);
 
 uint32_t x [] = {400,800,1200,1600,2000,2400,2800,3200};
 uint32_t y [] = {0,400,800,1200,1600,2000,2400,2800,3200};
@@ -193,6 +195,9 @@ void setup(void)
 
   // Task which runs the limit switches. It runs at a high priority
   xTaskCreate (task_limit, "Limit Switches", 20480, NULL, 5, NULL);
+
+    // Task which runs the limit switches. It runs at a high priority
+  xTaskCreate (task_button, "Button", 20480, NULL, 5, NULL);
 
   // Task which reads from the Serial Port
   xTaskCreate (task_read_n_echo, "SerialPort", 40000, NULL, 2, NULL);

@@ -31,4 +31,6 @@ extern Share<uint8_t> claw_trigger;
 extern Share<uint8_t> y_clear;
 extern Share<uint8_t> x_clear;
 
+extern Share<uint8_t> button_flag;
+
 #endif // _SHARES_H_

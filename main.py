@@ -4,9 +4,11 @@ import time
 ## State 0 of the user interface task
 S0_HOME             = 0
 ## State 1 of the user interface task
-S1_MOVE             = 1
+S1_BUTTON           = 1
 ## State 2 of the user interface task
-S2_WAIT             = 2
+S2_MOVE             = 2
+## State 3 of the user interface task
+S3_WAIT             = 3
 
 MAX_BUFF_LEN = 255
 port = serial.Serial("/dev/cu.usbserial-0001", 115200, timeout=1)
@@ -20,12 +22,16 @@ def task_chess(state = S0_HOME):
             home_x()
             reading = read()
             if reading == "done":
-                state = S1_MOVE
-        elif state == S1_MOVE:
+                state = S1_BUTTON
+        elif state == S1_BUTTON:
+            reading = read()
+            if reading == "push":
+                state = S2_MOVE
+        elif state == S2_MOVE:
             move_x("A")
             reading = read()
             if reading == "done":
-                state = S2_WAIT
+                state = S3_WAIT
 
 def read_serial(num_char=4):
     string = port.read(num_char)
