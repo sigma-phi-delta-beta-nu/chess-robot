@@ -133,6 +133,15 @@ void task_read_n_echo(void* p_params)
           x_clear.put(1);
         }
       }
+      else if(strs[0] == "wait")
+      {
+        Serial.print("push");
+        if (button_flag.get() == 1)
+        {
+          Serial.print("push");
+          ready_flag = 1;
+        }
+      }
       else if(strs[0] == "move")
       {
         dictionary2(strs[1]);

@@ -9,15 +9,14 @@ ezButton done_button(2, INPUT_PULLUP);
 
 void task_button (void* p_params)
 {
-    done_button.setDebounceTime(50);
+    done_button.setDebounceTime(5);
     
     while(true)
     {
         done_button.loop();
         if (done_button.isPressed())
         {
-            // button_flag.put(1);
-            Serial.print("push");
+            button_flag.put(1);
         }     
         vTaskDelay(10);
     }

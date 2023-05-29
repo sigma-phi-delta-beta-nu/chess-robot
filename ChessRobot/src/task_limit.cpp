@@ -10,8 +10,8 @@ ezButton limitswitch_y(33, INPUT_PULLUP);
 
 void task_limit (void* p_params)
 {
-    limitswitch_x.setDebounceTime(50);
-    limitswitch_y.setDebounceTime(50);
+    limitswitch_x.setDebounceTime(5);
+    limitswitch_y.setDebounceTime(5);
     
     while(true)
     {
