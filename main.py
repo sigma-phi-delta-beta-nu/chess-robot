@@ -19,12 +19,12 @@ def task_chess(state = S0_HOME):
     read_serial()
     while True:
         if state == S0_HOME:
-            home_x()
+            write_serial("homx")
             reading = read()
             if reading == "done":
                 state = S1_BUTTON
         elif state == S1_BUTTON:
-            wait()
+            write_serial("wait")
             reading = read()
             print(reading)
             if reading == "push":
@@ -52,14 +52,8 @@ def echo_test():
     if (len(string)):
         print(string)
 
-def home_x():
-    write_serial("homx")
-
 def home_y():
     write_serial("homy")
-
-def wait():
-    write_serial("wait")
 
 def read():
     # while True:
