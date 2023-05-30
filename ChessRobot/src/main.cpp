@@ -40,15 +40,15 @@ Share<uint8_t>  y_clear (0);
 Share<uint8_t>  button_flag (0);
 
 uint32_t x [] = {400,800,1200,1600,2000,2400,2800,3200};
-uint32_t y [] = {0,400,800,1200,1600,2000,2400,2800,3200};
+uint32_t y [] = {48,800,1200,1600,2000,2400,2800,3200};
 char letter [] = {'A','B','C','D','E','F','G','H'};
-char num [] = {'0','1','2','3','4','5','6','7','8'};
+char num [] = {'1','2','3','4','5','6','7','8'};
 
 void dictionary_x(String location)
 {
   for(int i = 0; i < sizeof(letter); i++)
   {
-    if(location[0] == letter [i])
+    if(location [0] == letter [i])
     {
       x_dist.put(x[i]);
     }
@@ -59,9 +59,10 @@ void dictionary_y(String location)
 {
   for(int i = 0; i < sizeof(num); i++)
   {
-    if(location[0] == num [i])
+    if(location [0] == num [i])
     {
       y_dist.put(y[i]);
+      //Serial.print(y_dist.get());
     }
   }
 }
@@ -117,6 +118,7 @@ void task_read_n_echo(void* p_params)
         }
         ready_flag == 0;
         // x_flag.put(0);
+        // y_flag.put(0);
       }
     }
     else
@@ -146,7 +148,7 @@ void task_read_n_echo(void* p_params)
         // Serial.print("done");
         if (button_flag.get() == 1)
         {
-          Serial.print("done");
+          Serial.print("push");
           ready_flag = 1;
         }
       }

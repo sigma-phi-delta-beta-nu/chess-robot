@@ -68,7 +68,7 @@ void task_x (void* p_params)
       if (error < 0.5 && error > -0.5)
       {
         x_flag.put(1);
-        // x_dist.put(encoder_current);
+        //x_dist.put(encoder_current);
       }
     }
     else

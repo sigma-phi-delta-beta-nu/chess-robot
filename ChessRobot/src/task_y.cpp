@@ -51,11 +51,11 @@ void task_y (void* p_params)
       // Serial.print(encoder_current);
       float error = desired_pos - encoder_current;
       float new_input = 0.8*(error);
-      if (abs(new_input) > 10)
+      if (new_input > 10)
       {
         motor_y.drive(50);        
       }
-      else if (abs(new_input) > -10)
+      else if (new_input < -10)
       {
         motor_y.drive(-50);        
       }
