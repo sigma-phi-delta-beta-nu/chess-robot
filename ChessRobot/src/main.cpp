@@ -88,6 +88,7 @@ void task_read_n_echo(void* p_params)
   bool ready_flag = 1;
   String strs[20];
   int StringCount = 0;
+  //Serial.available() > 0 && ready_flag == 1
   while(true)
   {
     if(Serial.available() > 0 && ready_flag == 1)
@@ -116,13 +117,19 @@ void task_read_n_echo(void* p_params)
             data = data.substring(index+1);
           }
         }
-        ready_flag == 0;
-        // x_flag.put(0);
-        // y_flag.put(0);
       }
+      ready_flag == 0;
+      x_flag.put(0);
+      y_flag.put(0);
+      // Serial.print(strs[0]);
     }
+    // else if (ready_flag == 1 && x_flag.get() == 1)
+    // {
+    //   Serial.print("clear");
+    // }
     else
     {
+      Serial.print(strs[0]);
       if(strs[0] == "homy")
       {
         y_dist.put(-10000);
@@ -131,9 +138,10 @@ void task_read_n_echo(void* p_params)
           Serial.print("done");
           ready_flag = 1;
           y_clear.put(1);
+          strs[0] = "";
         }
       }
-      else if(strs[0] == "homx")
+      if(strs[0] == "homx")
       {
         x_dist.put(-10000);
         if (x_flag.get() == 1)
@@ -141,35 +149,38 @@ void task_read_n_echo(void* p_params)
           Serial.print("done");
           ready_flag = 1;
           x_clear.put(1);
+          strs[0] = "";
         }
       }
-      else if(strs[0] == "wait")
+      if(strs[0] == "wait")
       {
-        // Serial.print("done");
         if (button_flag.get() == 1)
         {
           Serial.print("push");
           ready_flag = 1;
-        }
-      }
-      else if(strs[0] == "move")
-      {
-        dictionary2(strs[1]);
-        if(x_flag.get() == 1 && y_flag.get() == 1)
-        {
-          x_flag.put(0);
-          y_flag.put(0);
-          dictionary2(strs[2]);
-          if(x_flag.get() == 1 && y_flag.get() == 1)
-          {
-            x_flag.put(0);
-            y_flag.put(0);
-            Serial.print("done");
-          }
+          strs[0] = "";
+          // button_flag.put(0);
         }
       }
 
-      else if(strs[0] == "movx")
+      // else if(strs[0] == "move")
+      // {
+      //   dictionary2(strs[1]);
+      //   if(x_flag.get() == 1 && y_flag.get() == 1)
+      //   {
+      //     x_flag.put(0);
+      //     y_flag.put(0);
+      //     dictionary2(strs[2]);
+      //     if(x_flag.get() == 1 && y_flag.get() == 1)
+      //     {
+      //       x_flag.put(0);
+      //       y_flag.put(0);
+      //       Serial.print("done");
+      //     }
+      //   }
+      // }
+
+      if(strs[0] == "movx")
       {
         dictionary_x(strs[1]);
         if(x_flag.get() == 1)
@@ -178,7 +189,7 @@ void task_read_n_echo(void* p_params)
           ready_flag = 1;
         }
       }
-      else if(strs[0] == "movy")
+      if(strs[0] == "movy")
       {
         dictionary_y(strs[1]);
         if(y_flag.get() == 1)
@@ -211,6 +222,7 @@ void task_read_n_echo(void* p_params)
 void setup(void) 
 {
   Serial.begin(115200);
+  Serial1.begin(115200, int8_t rxPin = 0, int8_t txPin = 15);
   while (!Serial)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
 

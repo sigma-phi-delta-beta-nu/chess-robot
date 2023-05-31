@@ -20,23 +20,31 @@ def task_chess(state = S0_HOME):
     reading = ""
     while True:
         if state == S0_HOME:
+            print("S0")
             write_serial("homx")
             #write_serial("homy")
             while reading != "done":
                 reading = read()
+                print(reading)
             state = S1_BUTTON
         elif state == S1_BUTTON:
+            print("S1")
             write_serial("wait")
             while reading != "push":
+                #print(port.out_waiting)
+                #print(port.in_waiting)
                 reading = read()
+                print(reading)
             state = S2_MOVE
         elif state == S2_MOVE:
+            print("S2")
             move_x("A")
             #move_y("1")
             while reading != "done":
                 reading = read()
             state = S3_WAIT
         elif state == S3_WAIT:
+            print("S3")
             pass
 
 def read_serial(num_char=4):
@@ -66,7 +74,7 @@ def read():
     if (len(var) and "done" in var):
         #print(var)
         return "done"
-    elif (len(var) and "push" in var):
+    if (len(var) and "push" in var):
         return "push"
 
 def close():
