@@ -91,7 +91,7 @@ void task_read_n_echo(void* p_params)
   //Serial.available() > 0 && ready_flag == 1
   while(true)
   {
-    if(Serial.available() > 0 && ready_flag == 1)
+    if(Serial.available() > 0 && Serial.availableForWrite() > 0 && ready_flag == 1)
     {
       c = Serial.read();          // read one byte
       if (c != '\n')
@@ -121,19 +121,13 @@ void task_read_n_echo(void* p_params)
       ready_flag == 0;
       x_flag.put(0);
       y_flag.put(0);
-      // Serial.print(strs[0]);
     }
-    // else if (ready_flag == 1 && x_flag.get() == 1)
-    // {
-    //   Serial.print("clear");
-    // }
     else
     {
-      Serial.print(strs[0]);
       if(strs[0] == "homy")
       {
         y_dist.put(-10000);
-        if (y_flag.get() == 1)
+        if (y_flag.get() == 1 && Serial.availableForWrite() > 0)
         {
           Serial.print("done");
           ready_flag = 1;
@@ -144,7 +138,7 @@ void task_read_n_echo(void* p_params)
       if(strs[0] == "homx")
       {
         x_dist.put(-10000);
-        if (x_flag.get() == 1)
+        if (x_flag.get() == 1 && Serial.availableForWrite() > 0)
         {
           Serial.print("done");
           ready_flag = 1;
@@ -154,36 +148,17 @@ void task_read_n_echo(void* p_params)
       }
       if(strs[0] == "wait")
       {
-        if (button_flag.get() == 1)
+        if (button_flag.get() == 1 && Serial.availableForWrite() > 0)
         {
           Serial.print("push");
           ready_flag = 1;
           strs[0] = "";
-          // button_flag.put(0);
         }
       }
-
-      // else if(strs[0] == "move")
-      // {
-      //   dictionary2(strs[1]);
-      //   if(x_flag.get() == 1 && y_flag.get() == 1)
-      //   {
-      //     x_flag.put(0);
-      //     y_flag.put(0);
-      //     dictionary2(strs[2]);
-      //     if(x_flag.get() == 1 && y_flag.get() == 1)
-      //     {
-      //       x_flag.put(0);
-      //       y_flag.put(0);
-      //       Serial.print("done");
-      //     }
-      //   }
-      // }
-
       if(strs[0] == "movx")
       {
         dictionary_x(strs[1]);
-        if(x_flag.get() == 1)
+        if(x_flag.get() == 1 && Serial.availableForWrite() > 0)
         {
           Serial.print("done");
           ready_flag = 1;
@@ -192,7 +167,7 @@ void task_read_n_echo(void* p_params)
       if(strs[0] == "movy")
       {
         dictionary_y(strs[1]);
-        if(y_flag.get() == 1)
+        if(y_flag.get() == 1 && Serial.availableForWrite() > 0)
         {
           Serial.print("done");
           ready_flag = 1;
@@ -219,10 +194,60 @@ void task_read_n_echo(void* p_params)
   }
 }
 
+/*
+void task_read_n_echo(void* p_params)
+{
+  String data;
+  bool ready_flag = 1;
+  String strs[20];
+  int StringCount = 0;
+  //Serial.available() > 0 && ready_flag == 1
+  while(true)
+  {
+    if(Serial.available() > 0 && Serial.availableForWrite() > 0 && ready_flag == 1)
+    {
+      c = Serial.read();          // read one byte
+      if (c != '\n')
+      {                           //still read
+        str[idx++] = c;
+        data += c;
+      }
+      else
+      {                           // done reading
+        str[idx] = '\0';          // convert to str
+        idx = 0;
+        while (data.length() > 0)
+        {
+          int index = data.indexOf(',');
+          if (index == -1) // No comma found
+          {
+            strs[StringCount++] = data;
+            break;
+          }
+          else
+          {
+            strs[StringCount++] = data.substring(0, index);
+            data = data.substring(index+1);
+          }
+        }
+      }
+    }
+    else
+    {
+      if (strs[0] == "done")
+      {
+        Serial.print("undo");
+      }
+    }
+  }
+  vTaskDelay(10);
+}
+*/
+
 void setup(void) 
 {
   Serial.begin(115200);
-  Serial1.begin(115200, int8_t rxPin = 0, int8_t txPin = 15);
+  //Serial1.begin(115200, 134217756U, 0, 15);
   while (!Serial)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
 

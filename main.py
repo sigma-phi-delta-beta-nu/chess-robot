@@ -21,28 +21,47 @@ def task_chess(state = S0_HOME):
     while True:
         if state == S0_HOME:
             print("S0")
-            write_serial("homx")
+            if port.in_waiting == 0 and port.out_waiting == 0:
+                write_serial("homx")
             #write_serial("homy")
-            while reading != "done":
-                reading = read()
-                print(reading)
-            state = S1_BUTTON
+            #time.sleep(0.1)
+            if port.in_waiting == 0 and port.out_waiting == 0:
+                while reading != "done":
+                    reading = read()
+            #time.sleep(0.01)
+            #print(reading)
+                reading = ""
+                state = S1_BUTTON
         elif state == S1_BUTTON:
             print("S1")
-            write_serial("wait")
-            while reading != "push":
-                #print(port.out_waiting)
-                #print(port.in_waiting)
-                reading = read()
-                print(reading)
-            state = S2_MOVE
+            # write_serial("wait")
+            # while reading != "push":
+            #     #print(port.out_waiting)
+            #     #print(port.in_waiting)
+            #     reading = read()
+            #     #print(reading)
+            if port.in_waiting == 0 and port.out_waiting == 0:
+                write_serial("homx")
+            #time.sleep(0.1)
+            #write_serial("homy")
+            if port.in_waiting == 0 and port.out_waiting == 0:
+                while reading != "done":
+                    reading = read()
+                #time.sleep(0.01)
+                    #print(reading)
+                reading = ""
+                state = S2_MOVE
         elif state == S2_MOVE:
             print("S2")
-            move_x("A")
+            if port.in_waiting == 0 and port.out_waiting == 0:
+                move_x("A")
+            # time.sleep(0.1)
             #move_y("1")
-            while reading != "done":
-                reading = read()
-            state = S3_WAIT
+            if port.in_waiting == 0 and port.out_waiting == 0:
+                while reading != "done":
+                    reading = read()
+                #time.sleep(0.01)
+                state = S3_WAIT
         elif state == S3_WAIT:
             print("S3")
             pass
@@ -72,9 +91,11 @@ def read():
     var = read_serial()
     # print(var)
     if (len(var) and "done" in var):
+        var = ""
         #print(var)
         return "done"
     if (len(var) and "push" in var):
+        var = ""
         return "push"
 
 def close():
@@ -248,13 +269,13 @@ def promote(board_str, piece_loc, piece_type):
 task_chess()
 
 # i = 0
-# read_serial()
+# # read_serial()
+# port.reset_input_buffer()
 # while(True):
 #     if(i == 1):
-#         move_x("A")
-#         #move_y(1)
-#     var = read_serial(100)
-#     if (len(var) and "install" not in var):
-#         print(var)
+#         write_serial("done")
+#     var = read_serial(1000)
+#     #if (len(var) and "install" not in var):
+#     print(var)
 #     i += 1
 
