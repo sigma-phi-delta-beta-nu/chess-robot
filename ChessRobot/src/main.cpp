@@ -1,4 +1,3 @@
-
 /** @file main.cpp
  *  This is the main file for the microcontroller portion of the Chess
  *  Robot project. The program includes code to interface with python code
