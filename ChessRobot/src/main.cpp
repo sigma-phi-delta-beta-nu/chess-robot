@@ -38,8 +38,8 @@ Share<uint8_t>  x_clear (0);
 Share<uint8_t>  y_clear (0);
 Share<uint8_t>  button_flag (0);
 
-uint32_t x [] = {400,800,1200,1600,2000,2400,2800,3200};
-uint32_t y [] = {48,800,1200,1600,2000,2400,2800,3200};
+uint32_t x [] = {100,800,1200,1600,2000,2400,2800,3200};
+uint32_t y [] = {100,800,1200,1600,2000,2400,2800,3200};
 char letter [] = {'A','B','C','D','E','F','G','H'};
 char num [] = {'1','2','3','4','5','6','7','8'};
 
@@ -61,7 +61,6 @@ void dictionary_y(String location)
     if(location [0] == num [i])
     {
       y_dist.put(y[i]);
-      //Serial.print(y_dist.get());
     }
   }
 }
@@ -72,176 +71,103 @@ void dictionary2(String location)
   {
     if(location[0] == letter[i])
     {
-      x_dist.put(-x[i]);
+      x_dist.put(x[i]);
     }
-    if(i == location[1])
+    if(location[1] == num[i])
     {
-      y_dist.put(-y[i]);
+      y_dist.put(y[i]);
     }
   }
 }
 
-void task_read_n_echo(void* p_params)
+void task_user(void* p_params)
 {
-  String data;
-  bool ready_flag = 1;
-  String strs[20];
-  int StringCount = 0;
-  //Serial.available() > 0 && ready_flag == 1
-  while(true)
+  int state = 0;
+  int i = 0;
+  String commandx = "";
+  String commandy = "";
+  String command = "";
+  int idx = 0;
+  while (true)
   {
-    if(Serial.available() > 0 && Serial.availableForWrite() > 0 && ready_flag == 1)
+    if (state == 0)
     {
-      c = Serial.read();          // read one byte
-      if (c != '\n')
-      {                           //still read
-        str[idx++] = c;
-        data += c;
+      if (i == 0)
+      {
+        Serial.println(state);
+        i += 1;
+      }
+      if (button_flag.get() == 1)
+      {
+        button_flag.put(0);
+        i = 0;
+        state = 1;
+      }
+    }
+    else if (state == 1)
+    {
+      if (i == 0)
+      {
+        Serial.println(state);
+        x_dist.put(-10000);
+        i += 1;
+      }
+      if (x_flag.get() == 1)
+      {
+        x_clear.put(1);
+        x_flag.put(0);
+        i = 0;
+        state = 2;
+      }
+    }
+    else if (state == 2)
+    {
+      if (i == 0)
+      {
+        Serial.println(state);
+        i += 1;
+      }
+      if (button_flag.get() == 1)
+      {
+        button_flag.put(0);
+        i = 0;
+        state = 3;
+      }
+    }
+    else if (state == 3)
+    {
+      if (i == 0)
+      {
+        Serial.println(state);
+        Serial.println("Enter Command:");
+        i += 1;
+      }
+      if(command == "")
+      {
+        command = Serial.readStringUntil('\n');
       }
       else
-      {                           // done reading
-        str[idx] = '\0';          // convert to str
-        idx = 0;
-        while (data.length() > 0)
-        {
-          int index = data.indexOf(',');
-          if (index == -1) // No comma found
-          {
-            strs[StringCount++] = data;
-            break;
-          }
-          else
-          {
-            strs[StringCount++] = data.substring(0, index);
-            data = data.substring(index+1);
-          }
-        }
+      {
+        i = 0;
+        state = 4;
+        x_flag.put(0);
+        y_flag.put(0);
       }
-      ready_flag == 0;
-      x_flag.put(0);
-      y_flag.put(0);
     }
-    else
+    else if (state == 4)
     {
-      if(strs[0] == "homy")
+      if (i == 0)
       {
-        y_dist.put(-10000);
-        if (y_flag.get() == 1 && Serial.availableForWrite() > 0)
-        {
-          Serial.print("done");
-          ready_flag = 1;
-          y_clear.put(1);
-          strs[0] = "";
-        }
+        Serial.println(state);
+        dictionary2(command);
+        i += 1;
       }
-      if(strs[0] == "homx")
-      {
-        x_dist.put(-10000);
-        if (x_flag.get() == 1 && Serial.availableForWrite() > 0)
-        {
-          Serial.print("done");
-          ready_flag = 1;
-          x_clear.put(1);
-          strs[0] = "";
-        }
-      }
-      if(strs[0] == "wait")
-      {
-        if (button_flag.get() == 1 && Serial.availableForWrite() > 0)
-        {
-          Serial.print("push");
-          ready_flag = 1;
-          strs[0] = "";
-        }
-      }
-      if(strs[0] == "movx")
-      {
-        dictionary_x(strs[1]);
-        if(x_flag.get() == 1 && Serial.availableForWrite() > 0)
-        {
-          Serial.print("done");
-          ready_flag = 1;
-        }
-      }
-      if(strs[0] == "movy")
-      {
-        dictionary_y(strs[1]);
-        if(y_flag.get() == 1 && Serial.availableForWrite() > 0)
-        {
-          Serial.print("done");
-          ready_flag = 1;
-        }
-      }
-        //Serial.print('\n');
-        // if (x_flag.get() == 0)
-        // {
-        //   x_dist.put(1000);
-        // }
-
-        //Serial.print(y_dist.get());
-        //x_dist.put(400);
-        //y_dist.put(1000);
-
-        //Serial.print(data);
-        //data = "";
-
-          // if (data.indexOf(close)){
-          // // x_dist.put(10000);
-          // }
+      //Serial.print(x_flag.get());
     }
     vTaskDelay(10);
   }
 }
 
-/*
-void task_read_n_echo(void* p_params)
-{
-  String data;
-  bool ready_flag = 1;
-  String strs[20];
-  int StringCount = 0;
-  //Serial.available() > 0 && ready_flag == 1
-  while(true)
-  {
-    if(Serial.available() > 0 && Serial.availableForWrite() > 0 && ready_flag == 1)
-    {
-      c = Serial.read();          // read one byte
-      if (c != '\n')
-      {                           //still read
-        str[idx++] = c;
-        data += c;
-      }
-      else
-      {                           // done reading
-        str[idx] = '\0';          // convert to str
-        idx = 0;
-        while (data.length() > 0)
-        {
-          int index = data.indexOf(',');
-          if (index == -1) // No comma found
-          {
-            strs[StringCount++] = data;
-            break;
-          }
-          else
-          {
-            strs[StringCount++] = data.substring(0, index);
-            data = data.substring(index+1);
-          }
-        }
-      }
-    }
-    else
-    {
-      if (strs[0] == "done")
-      {
-        Serial.print("undo");
-      }
-    }
-  }
-  vTaskDelay(10);
-}
-*/
 
 void setup(void) 
 {
@@ -249,22 +175,23 @@ void setup(void)
   //Serial1.begin(115200, 134217756U, 0, 15);
   while (!Serial)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
+    Serial.flush();
 
   // Task which runs x-axis motor. It runs at a high priority
   // stack depth was 2048
-  xTaskCreate (task_x, "X Axis", 20480, NULL, 5, NULL);
+  xTaskCreate (task_x, "X Axis", 2048, NULL, 5, NULL);
 
   // Task which runs y-axis motor. It runs at a high priority
-  xTaskCreate (task_y, "Y Axis", 20480, NULL, 5, NULL);
+  xTaskCreate (task_y, "Y Axis", 2048, NULL, 5, NULL);
 
   // Task which runs the limit switches. It runs at a high priority
-  xTaskCreate (task_limit, "Limit Switches", 20480, NULL, 5, NULL);
+  xTaskCreate (task_limit, "Limit Switches", 2048, NULL, 5, NULL);
 
     // Task which runs the limit switches. It runs at a high priority
-  xTaskCreate (task_button, "Button", 20480, NULL, 5, NULL);
+  xTaskCreate (task_button, "Button", 2048, NULL, 5, NULL);
 
   // Task which reads from the Serial Port
-  xTaskCreate (task_read_n_echo, "SerialPort", 40000, NULL, 2, NULL);
+  xTaskCreate (task_user, "SerialPort", 40000, NULL, 2, NULL);
 }
 
 void loop (void) {

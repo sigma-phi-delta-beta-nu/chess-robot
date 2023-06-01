@@ -45,7 +45,6 @@ void task_x (void* p_params)
   {
     if (x_flag.get() == 0)
     {
-      // float desired_pos = 400;
       float desired_pos = x_dist.get();
       float encoder_current = encoder_x.getCount();
       float error = desired_pos - encoder_current;
@@ -62,13 +61,9 @@ void task_x (void* p_params)
       {
         motor_x.drive(new_input);
       }
-      // Serial.println(desired_pos);
-      // Serial.println(encoder_current);
-      // Serial.println(error);
       if (error < 0.5 && error > -0.5)
       {
         x_flag.put(1);
-        //x_dist.put(encoder_current);
       }
     }
     else
@@ -77,46 +72,9 @@ void task_x (void* p_params)
       if (x_clear.get() == 1)
       {
         encoder_x.clearCount();
-        x_dist.put(0);
         x_clear.put(0);
       }
     }
-    // float desired_pos = 10000;
-    // float encoder_current = -encoder_x.getCount();
-    // float error = desired_pos - encoder_current;
-    // float new_input = -0.5*(error);
-    // motor_x.drive(new_input);
-    // Serial.println(desired_pos);
-    // Serial.println(encoder_current);
-    // Serial.println(error);
-    // if (error < 0.1 && error > -0.1)
-    // {
-    //   Serial.print("done");
-    //   x_flag.put(1);
-    //   motor_x.brake();
-    // }
-    // float desired_pos = x_dist.get();
-    // //float desired_pos = 10000;
-    // float encoder_current = -encoder_x.getCount();
-    // float error = desired_pos - encoder_current;
-    // float new_input = -2*(error);
-    // Serial.println(desired_pos);
-    // Serial.println(encoder_current);
-    // Serial.println(error);
-
-    //Serial.print(encoder_current);
-
-    // if (error < 0.1 && error > -0.1)
-    // {
-    //   //Serial.print("Done");
-    //   x_flag.put(1);
-    // }
-    
-    // if (desired_pos > 0)
-    // {
-    //   Serial.println("ESP: Done");
-    // }
-
     vTaskDelay(10);
   }
 }
